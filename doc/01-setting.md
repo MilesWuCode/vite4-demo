@@ -14,3 +14,6 @@
 +   '@vue/eslint-config-prettier'
   ],
 ```
+
+icons:
+https://icon-sets.iconify.design
