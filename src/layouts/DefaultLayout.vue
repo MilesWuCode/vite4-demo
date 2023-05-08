@@ -1,155 +1,32 @@
 <script setup lang="ts">
-import MenuIcon from '@/components/icons/MenuIcon.vue'
-import MenuKebabIcon from '@/components/icons/MenuKebabIcon.vue'
-import CloseIcon from '@/components/icons/CloseIcon.vue'
-import { Dialog, DialogPanel } from '@headlessui/vue'
 import { ref } from 'vue'
+import MenuSM from '@/components/Menu/MenuSM.vue'
+import MenuMD from '@/components/Menu/MenuMD.vue'
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 
-const isOpen = ref(false)
-const showSidebar = ref(false)
-const close = ref()
-
-function setIsOpen(value: boolean) {
-  isOpen.value = value
-}
+const showMenuSM = ref(false)
+const showMenuMD = ref(true)
 </script>
 
 <template>
   <div>
-    <!-- sm:menu -->
-    <Dialog
-      :open="isOpen"
-      @close="setIsOpen"
-      :initialFocus="close"
-      class="md:hidden fixed inset-0 z-40"
-    >
-      <!-- overlay -->
-      <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
+    <!-- offcanvas:menu -->
+    <MenuSM v-model:show-menu="showMenuSM" />
 
-      <!-- panel -->
-      <DialogPanel class="flex flex-col relative z-10 h-full w-72 bg-white">
-        <div class="flex p-2">
-          <h3 class="text-xl flex-1">LOGO</h3>
-          <button ref="close" class="flex-none" @click="isOpen = !isOpen"><CloseIcon /></button>
-        </div>
-        <div class="overflow-y-auto">
-          <ul class="menu">
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 4</a></li>
-          </ul>
-        </div>
-      </DialogPanel>
-    </Dialog>
+    <!-- top:navbar -->
+    <Navbar v-model:show-menu-sm="showMenuSM" v-model:show-menu-md="showMenuMD" />
 
-    <!-- navbar -->
-    <div class="navbar">
-      <div class="flex-none">
-        <!-- sm:menu -->
-        <button type="button" class="md:hidden btn btn-square btn-ghost" @click="isOpen = !isOpen">
-          <MenuIcon />
-        </button>
-        <!-- md:menu -->
-        <button
-          type="button"
-          class="hidden md:flex btn btn-square btn-ghost"
-          @click="showSidebar = !showSidebar"
-        >
-          <MenuIcon />
-        </button>
-      </div>
-      <div class="flex-1">
-        <h3 class="text-xl">LOGO</h3>
-      </div>
-      <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
-          <MenuKebabIcon />
-        </button>
-      </div>
-    </div>
+    <!-- left:menu -->
+    <MenuMD :show-menu="showMenuMD" />
 
-    <!--  -->
-    <div class="flex">
-      <!-- left -->
-      <!-- md:menu -->
-      <div
-        :class="!showSidebar && 'md:hidden'"
-        class="hidden md:block w-64 h-[calc(100vh-4rem-53px)] border-r border-t border-gray overflow-y-hidden hover:overflow-y-scroll"
-      >
-        <ul class="menu">
-          <li><a>Item 1</a></li>
-          <li><a>Item 2</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 4</a></li>
-        </ul>
-      </div>
-
-      <!-- right -->
-      <div class="flex-1 border-t border-gray">
-        <!-- page -->
-        <RouterView />
-
-        <!-- footer -->
-        <small>default layout</small>
-      </div>
+    <!-- right -->
+    <div class="lg:pl-80">
+      <!-- page -->
+      <RouterView />
 
       <!-- footer -->
-      <footer class="fixed bottom-0 footer items-center p-4 border-t border-gray">
-        <div class="items-center grid-flow-col">
-          <p>Copyright © 2023 - All right reserved</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   </div>
 </template>
