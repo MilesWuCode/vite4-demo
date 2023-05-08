@@ -100,6 +100,7 @@ function setIsOpen(value: boolean) {
       </div>
 
       <div class="flex">
+        <!-- left -->
         <!-- md:menu -->
         <div
           :class="!showSidebar && 'md:hidden'"
@@ -137,8 +138,10 @@ function setIsOpen(value: boolean) {
             <li><a>Item 4</a></li>
           </ul>
         </div>
+
+        <!-- right -->
         <div class="flex-1 px-2 border-t border-gray">
-          <!-- view -->
+          <!-- page -->
           <RouterView />
 
           <!-- footer -->
