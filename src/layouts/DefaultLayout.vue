@@ -16,7 +16,7 @@ function setIsOpen(value: boolean) {
 
 <template>
   <div>
-    <!-- sidebar -->
+    <!-- sm:menu -->
     <Dialog
       :open="isOpen"
       @close="setIsOpen"
@@ -68,86 +68,88 @@ function setIsOpen(value: boolean) {
       </DialogPanel>
     </Dialog>
 
-    <div>
-      <!-- navbar -->
-      <div class="navbar">
-        <div class="flex-none">
-          <!-- sm:menu -->
-          <button
-            type="button"
-            class="md:hidden btn btn-square btn-ghost"
-            @click="isOpen = !isOpen"
-          >
-            <MenuIcon />
-          </button>
-          <!-- md:menu -->
-          <button
-            type="button"
-            class="hidden md:flex btn btn-square btn-ghost"
-            @click="showSidebar = !showSidebar"
-          >
-            <MenuIcon />
-          </button>
-        </div>
-        <div class="flex-1">
-          <h3 class="text-xl">LOGO</h3>
-        </div>
-        <div class="flex-none">
-          <button class="btn btn-square btn-ghost">
-            <MenuKebabIcon />
-          </button>
-        </div>
-      </div>
-
-      <div class="flex">
-        <!-- left -->
+    <!-- navbar -->
+    <div class="navbar">
+      <div class="flex-none">
+        <!-- sm:menu -->
+        <button type="button" class="md:hidden btn btn-square btn-ghost" @click="isOpen = !isOpen">
+          <MenuIcon />
+        </button>
         <!-- md:menu -->
-        <div
-          :class="!showSidebar && 'md:hidden'"
-          class="hidden md:block w-64 h-[calc(100vh-4rem)] border-r border-t border-gray overflow-y-hidden hover:overflow-y-scroll"
+        <button
+          type="button"
+          class="hidden md:flex btn btn-square btn-ghost"
+          @click="showSidebar = !showSidebar"
         >
-          <ul class="menu">
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 3</a></li>
-            <li><a>Item 4</a></li>
-          </ul>
-        </div>
-
-        <!-- right -->
-        <div class="flex-1 px-2 border-t border-gray">
-          <!-- page -->
-          <RouterView />
-
-          <!-- footer -->
-          <small>default layout</small>
-        </div>
+          <MenuIcon />
+        </button>
       </div>
+      <div class="flex-1">
+        <h3 class="text-xl">LOGO</h3>
+      </div>
+      <div class="flex-none">
+        <button class="btn btn-square btn-ghost">
+          <MenuKebabIcon />
+        </button>
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="flex">
+      <!-- left -->
+      <!-- md:menu -->
+      <div
+        :class="!showSidebar && 'md:hidden'"
+        class="hidden md:block w-64 h-[calc(100vh-4rem-53px)] border-r border-t border-gray overflow-y-hidden hover:overflow-y-scroll"
+      >
+        <ul class="menu">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 3</a></li>
+          <li><a>Item 4</a></li>
+        </ul>
+      </div>
+
+      <!-- right -->
+      <div class="flex-1 border-t border-gray">
+        <!-- page -->
+        <RouterView />
+
+        <!-- footer -->
+        <small>default layout</small>
+      </div>
+
+      <!-- footer -->
+      <footer class="fixed bottom-0 footer items-center p-4 border-t border-gray">
+        <div class="items-center grid-flow-col">
+          <p>Copyright © 2023 - All right reserved</p>
+        </div>
+      </footer>
     </div>
   </div>
 </template>
