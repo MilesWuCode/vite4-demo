@@ -5,15 +5,15 @@ import CloseIcon from '@/components/icons/CloseIcon.vue'
 import List from '@/components/Menu/List.vue'
 
 defineProps<{
-  showMenu: boolean
+  show: boolean
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:showMenu', showMenu: boolean): void
+  (e: 'update:show', show: boolean): void
 }>()
 
-function toggleMenu(val: boolean) {
-  emit('update:showMenu', val)
+function toggle(val: boolean) {
+  emit('update:show', val)
 }
 
 const closeBtn = ref()
@@ -21,9 +21,9 @@ const closeBtn = ref()
 
 <template>
   <Dialog
-    :open="showMenu"
+    :open="show"
     :initialFocus="closeBtn"
-    @close="toggleMenu"
+    @close="toggle"
     class="fixed inset-0 z-40 md:hidden"
   >
     <!-- overlay -->
@@ -33,7 +33,7 @@ const closeBtn = ref()
     <DialogPanel class="relative z-10 flex flex-col h-full bg-white w-72">
       <div class="flex p-4 border border-b border-gray">
         <h3 class="flex-1 text-xl">LOGO</h3>
-        <button ref="closeBtn" class="flex-none" @click="toggleMenu(!showMenu)">
+        <button ref="closeBtn" class="flex-none" @click="emit('update:show', !show)">
           <CloseIcon />
         </button>
       </div>

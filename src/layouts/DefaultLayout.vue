@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import MenuSM from '@/components/Menu/MenuSM.vue'
-import MenuMD from '@/components/Menu/MenuMD.vue'
+import Offcanvas from '@/components/Menu/Offcanvas.vue'
+import Sidebar from '@/components/Menu/Sidebar.vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 
-const showMenuSM = ref(false)
-const showMenuMD = ref(true)
+const showOffcanvas = ref(false)
+const showSidebar = ref(true)
 </script>
 
 <template>
   <div>
     <!-- offcanvas:menu -->
-    <MenuSM v-model:show-menu="showMenuSM" />
+    <Offcanvas v-model:show="showOffcanvas" />
 
     <!-- top:navbar -->
-    <Navbar v-model:show-menu-sm="showMenuSM" v-model:show-menu-md="showMenuMD" />
+    <Navbar v-model:showOffcanvas="showOffcanvas" v-model:showSidebar="showSidebar" />
 
     <!-- left:menu -->
-    <MenuMD :show-menu="showMenuMD" />
+    <Sidebar :show="showSidebar" />
 
     <!-- right -->
-    <div class="lg:pl-80">
+    <div :class="showSidebar && 'lg:pl-80'">
       <!-- page -->
       <RouterView />
 

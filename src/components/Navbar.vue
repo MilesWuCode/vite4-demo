@@ -3,13 +3,13 @@ import MenuIcon from '@/components/icons/MenuIcon.vue'
 import MenuKebabIcon from '@/components/icons/MenuKebabIcon.vue'
 
 defineProps<{
-  showMenuSm: boolean
-  showMenuMd: boolean
+  showOffcanvas: boolean
+  showSidebar: boolean
 }>()
 
 const emit = defineEmits<{
-  (e: 'update:show-menu-sm', val: boolean): void
-  (e: 'update:show-menu-md', val: boolean): void
+  (e: 'update:show-offcanvas', val: boolean): void
+  (e: 'update:show-sidebar', val: boolean): void
 }>()
 </script>
 
@@ -19,14 +19,14 @@ const emit = defineEmits<{
       <button
         type="button"
         class="md:hidden btn btn-square btn-ghost"
-        @click="emit('update:show-menu-sm', !showMenuSm)"
+        @click="emit('update:show-offcanvas', !showOffcanvas)"
       >
         <MenuIcon />
       </button>
       <button
         type="button"
         class="hidden md:flex btn btn-square btn-ghost"
-        @click="emit('update:show-menu-md', !showMenuMd)"
+        @click="emit('update:show-sidebar', !showSidebar)"
       >
         <MenuIcon />
       </button>
