@@ -35,6 +35,11 @@ const emit = defineEmits<{
       <h3 class="text-xl">Logo</h3>
     </div>
     <div class="flex-none">
+      <div class="avatar placeholder">
+        <div class="w-10 rounded-full bg-black-focus text-black-content">
+          <span class="text-xl">JO</span>
+        </div>
+      </div>
       <button class="btn btn-square btn-ghost">
         <MenuKebabIcon />
       </button>
