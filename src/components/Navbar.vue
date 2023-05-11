@@ -58,8 +58,8 @@ const emit = defineEmits<{
       </button>
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-circle btn-ghost avatar">
-          <div class="w-10 rounded-full">
-            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <div class="rounded-full w-60">
+            <img src="cat01.jpg" />
           </div>
         </label>
         <ul

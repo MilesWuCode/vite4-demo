@@ -21,7 +21,7 @@ const showSidebar = ref(true)
     <Sidebar :show="showSidebar" />
 
     <!-- right -->
-    <div :class="showSidebar && 'lg:pl-80'">
+    <div :class="showSidebar && 'lg:pl-60'">
       <!-- page -->
       <RouterView />
 
