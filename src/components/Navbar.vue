@@ -58,6 +58,8 @@ const emit = defineEmits<{
           />
         </svg>
       </button>
+
+      <!-- avatar,menu -->
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-circle btn-ghost avatar">
           <div class="rounded-full">
