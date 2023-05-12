@@ -31,11 +31,16 @@ const closeBtn = ref()
 
     <!-- panel -->
     <DialogPanel class="relative z-10 flex flex-col h-full bg-white w-72">
-      <div class="h-16 border border-b navbar border-gray">
-        <h3 class="flex-1 text-xl">LOGO</h3>
-        <button ref="closeBtn" class="flex-none" @click="emit('update:show', !show)">
+      <div class="h-16 space-x-2 border border-b navbar border-gray">
+        <button
+          type="button"
+          ref="closeBtn"
+          class="md:hidden btn btn-circle btn-ghost"
+          @click="emit('update:show', !show)"
+        >
           <CloseIcon />
         </button>
+        <h3 class="flex-1 text-xl">Logo</h3>
       </div>
       <div class="overflow-y-auto">
         <List />

@@ -16,7 +16,7 @@ const emit = defineEmits<{
 <template>
   <div class="sticky top-0 h-16 bg-white border-b navbar border-gray">
     <!-- left:menu -->
-    <div class="flex-none">
+    <div class="flex-none space-x-2">
       <button
         type="button"
         class="md:hidden btn btn-circle btn-ghost"
@@ -31,11 +31,13 @@ const emit = defineEmits<{
       >
         <MenuIcon />
       </button>
+
+      <h3 class="text-xl">Logo</h3>
     </div>
 
     <!-- logo -->
     <div class="flex-1">
-      <h3 class="text-xl">Logo</h3>
+      <!-- search -->
     </div>
 
     <!-- right:tools -->
