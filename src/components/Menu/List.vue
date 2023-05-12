@@ -4,24 +4,6 @@ import { reactive } from 'vue'
 const menu = reactive([
   { name: 'Index', href: '/' },
   { name: 'Todo', href: '/todo' },
-  { name: 'Not Found', href: '/not-found' },
-  { name: 'Index', href: '/' },
-  { name: 'Todo', href: '/todo' },
-  { name: 'Not Found', href: '/not-found' },
-  { name: 'Index', href: '/' },
-  { name: 'Todo', href: '/todo' },
-  { name: 'Not Found', href: '/not-found' },
-  { name: 'Index', href: '/' },
-  { name: 'Todo', href: '/todo' },
-  { name: 'Not Found', href: '/not-found' },
-  { name: 'Index', href: '/' },
-  { name: 'Todo', href: '/todo' },
-  { name: 'Not Found', href: '/not-found' },
-  { name: 'Index', href: '/' },
-  { name: 'Todo', href: '/todo' },
-  { name: 'Not Found', href: '/not-found' },
-  { name: 'Index', href: '/' },
-  { name: 'Todo', href: '/todo' },
   { name: 'Not Found', href: '/not-found' }
 ])
 </script>
