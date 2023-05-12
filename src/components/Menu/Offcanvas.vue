@@ -31,7 +31,7 @@ const closeBtn = ref()
 
     <!-- panel -->
     <DialogPanel class="relative z-10 flex flex-col h-full bg-white w-72">
-      <div class="flex p-4 border border-b border-gray">
+      <div class="h-16 border border-b navbar border-gray">
         <h3 class="flex-1 text-xl">LOGO</h3>
         <button ref="closeBtn" class="flex-none" @click="emit('update:show', !show)">
           <CloseIcon />

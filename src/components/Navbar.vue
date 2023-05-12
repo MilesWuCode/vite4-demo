@@ -14,7 +14,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="sticky top-0 bg-white border-b opacity-1 navbar border-gray">
+  <div class="sticky top-0 h-16 bg-white border-b navbar border-gray">
     <!-- left:menu -->
     <div class="flex-none">
       <button
@@ -39,7 +39,7 @@ const emit = defineEmits<{
     </div>
 
     <!-- right:tools -->
-    <div class="flex-none">
+    <div class="flex-none space-x-2">
       <button class="btn btn-circle btn-ghost">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@ const emit = defineEmits<{
       </button>
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-circle btn-ghost avatar">
-          <div class="rounded-full w-60">
+          <div class="rounded-full">
             <img src="cat01.jpg" />
           </div>
         </label>
