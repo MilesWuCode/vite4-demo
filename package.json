@@ -16,6 +16,8 @@
     "@headlessui/vue": "^1.7.13",
     "@tanstack/vue-query": "^4.29.5",
     "@types/uuid": "^9.0.1",
+    "@unhead/vue": "^1.1.26",
+    "@vueuse/core": "^10.1.2",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "daisyui": "^2.51.6",
