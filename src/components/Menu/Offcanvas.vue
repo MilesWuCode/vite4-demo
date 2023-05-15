@@ -24,7 +24,7 @@ const closeBtn = ref()
     :open="show"
     :initialFocus="closeBtn"
     @close="toggle"
-    class="fixed inset-0 z-40 md:hidden"
+    class="fixed inset-0 z-40 lg:hidden"
   >
     <!-- overlay -->
     <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -35,7 +35,7 @@ const closeBtn = ref()
         <button
           type="button"
           ref="closeBtn"
-          class="md:hidden btn btn-circle btn-ghost"
+          class="lg:hidden btn btn-circle btn-ghost"
           @click="emit('update:show', !show)"
         >
           <CloseIcon />

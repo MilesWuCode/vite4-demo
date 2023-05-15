@@ -19,14 +19,14 @@ const emit = defineEmits<{
     <div class="flex-none space-x-2">
       <button
         type="button"
-        class="md:hidden btn btn-circle btn-ghost"
+        class="lg:hidden btn btn-circle btn-ghost"
         @click="emit('update:show-offcanvas', !showOffcanvas)"
       >
         <MenuIcon />
       </button>
       <button
         type="button"
-        class="hidden md:flex btn btn-circle btn-ghost"
+        class="hidden lg:flex btn btn-circle btn-ghost"
         @click="emit('update:show-sidebar', !showSidebar)"
       >
         <MenuIcon />

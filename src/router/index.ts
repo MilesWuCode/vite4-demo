@@ -12,19 +12,58 @@ const router = createRouter({
       path: '/',
       component: DefaultLayout,
       children: [
-        { path: '', component: IndexView },
-        { path: 'login', component: () => import('../views/LoginView.vue') },
-        { path: 'register', component: () => import('../views/RegisterView.vue') },
-        { path: 'todo', component: () => import('../views/TodoView.vue') }
+        {
+          path: '',
+          component: IndexView,
+          meta: { auth: 'all' }
+        },
+        {
+          path: 'login',
+          component: () => import('../views/LoginView.vue'),
+          meta: { auth: 'guest' }
+        },
+        {
+          path: 'register',
+          component: () => import('../views/RegisterView.vue'),
+          meta: { auth: 'guest' }
+        },
+        {
+          path: 'todo',
+          component: () => import('../views/TodoView.vue'),
+          meta: { auth: 'member' }
+        }
       ]
     },
     {
       path: '/',
       component: () => import('../layouts/OtherLayout.vue'),
-      children: [{ path: 'about', component: () => import('../views/AboutView.vue') }]
+      children: [
+        {
+          path: 'about',
+          component: () => import('../views/AboutView.vue'),
+          meta: { auth: 'all' }
+        }
+      ]
     },
     { path: '/:pathMatch(.*)*', component: NotFoundView }
   ]
+})
+
+router.beforeEach(async (to, from) => {
+  const isLogin = false
+
+  // 頁面是訪客專用
+  if (to.meta.auth === 'guest' && isLogin) {
+    return from
+  }
+
+  // 頁面是會員專用
+  if (to.meta.auth === 'member' && !isLogin) {
+    return {
+      path: '/login',
+      query: { redirect: to.fullPath }
+    }
+  }
 })
 
 export default router
