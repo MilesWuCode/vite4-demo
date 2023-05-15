@@ -3,6 +3,8 @@ import { reactive } from 'vue'
 
 const menu = reactive([
   { name: 'Index', href: '/' },
+  { name: 'Login', href: '/login' },
+  { name: 'Register', href: '/register' },
   { name: 'Todo', href: '/todo' },
   { name: 'Not Found', href: '/not-found' }
 ])

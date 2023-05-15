@@ -13,6 +13,8 @@ const router = createRouter({
       component: DefaultLayout,
       children: [
         { path: '', component: IndexView },
+        { path: 'login', component: () => import('../views/LoginView.vue') },
+        { path: 'register', component: () => import('../views/RegisterView.vue') },
         { path: 'todo', component: () => import('../views/TodoView.vue') }
       ]
     },
