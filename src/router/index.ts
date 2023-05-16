@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import Cookies from 'js-cookie'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import IndexView from '../views/IndexView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
-import Cookies from 'js-cookie'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,14 +51,15 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
+  // 檢查登入
   const isLogin = !!Cookies.get('token')
 
-  // 頁面是訪客專用
+  // 訪客專用
   if (to.meta.auth === 'guest' && isLogin) {
     return from
   }
 
-  // 頁面是會員專用
+  // 會員專用
   if (to.meta.auth === 'member' && !isLogin) {
     return {
       path: '/login',
