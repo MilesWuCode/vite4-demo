@@ -3,13 +3,14 @@ import { defineRule, Field, Form, ErrorMessage, configure } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
-import { required, email, min, max } from '@vee-validate/rules'
+import { required, email, min, max, confirmed } from '@vee-validate/rules'
 import { ref } from 'vue'
 
 defineRule('required', required)
 defineRule('email', email)
 defineRule('min', min)
 defineRule('max', max)
+defineRule('confirmed', confirmed)
 
 configure({
   generateMessage: localize({
@@ -40,11 +41,31 @@ const switchLanguage = () => {
   <Form @submit="onSubmit">
     <div class="w-full max-w-xs form-control">
       <label class="label">
+        <span class="label-text">Name</span>
+        <span class="label-text-alt"></span>
+      </label>
+      <Field
+        name="name"
+        label="名字"
+        type="text"
+        placeholder="Your Name"
+        class="w-full max-w-xs input-bordered input"
+        rules="required|max:20"
+      />
+      <label class="label">
+        <span class="label-text-alt"></span>
+        <span class="text-red-500 label-text-alt">
+          <ErrorMessage name="name" />
+        </span>
+      </label>
+
+      <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="E-mail"
+        name="email"
+        label="E-mail"
         type="email"
         placeholder="Your Email"
         class="w-full max-w-xs input-bordered input"
@@ -53,7 +74,7 @@ const switchLanguage = () => {
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="text-red-500 label-text-alt">
-          <ErrorMessage name="E-mail" />
+          <ErrorMessage name="email" />
         </span>
       </label>
 
@@ -62,15 +83,33 @@ const switchLanguage = () => {
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="密碼"
+        name="password"
+        label="密碼"
         type="password"
-        placeholder="Your password"
+        placeholder="Your Password"
         class="w-full max-w-xs input-bordered input"
         rules="required|min:8|max:32"
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="密碼" /></span>
+        <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
+      </label>
+
+      <label class="label">
+        <span class="label-text">Password</span>
+        <span class="label-text-alt"></span>
+      </label>
+      <Field
+        name="comfirm_password"
+        label="確認密碼"
+        type="password"
+        placeholder="Comfirm Password"
+        class="w-full max-w-xs input-bordered input"
+        rules="confirmed:@password"
+      />
+      <label class="label">
+        <span class="label-text-alt"></span>
+        <span class="text-red-500 label-text-alt"><ErrorMessage name="comfirm_password" /></span>
       </label>
 
       <label class="cursor-pointer label">

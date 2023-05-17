@@ -66,7 +66,7 @@ const switchLanguage = () => {
       <Field
         name="密碼"
         type="password"
-        placeholder="Your password"
+        placeholder="Your Password"
         class="w-full max-w-xs input-bordered input"
         rules="required|min:8|max:32"
       />
