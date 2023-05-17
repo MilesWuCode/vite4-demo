@@ -39,7 +39,6 @@ const switchLanguage = () => {
 <template>
   <Form @submit="onSubmit">
     <div class="w-full max-w-xs form-control">
-      <!-- email -->
       <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
@@ -58,7 +57,6 @@ const switchLanguage = () => {
         </span>
       </label>
 
-      <!-- password -->
       <label class="label">
         <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
@@ -76,7 +74,7 @@ const switchLanguage = () => {
       </label>
 
       <label class="cursor-pointer label">
-        <span class="label-text">switch language</span>
+        <span class="label-text">Switch language</span>
         <input
           v-model="lang"
           type="checkbox"
