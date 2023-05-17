@@ -8,6 +8,32 @@ import { ref } from 'vue'
 import axios from '@/utils/axios'
 import { useMutation } from '@tanstack/vue-query'
 
+defineRule('required', required)
+defineRule('email', email)
+defineRule('min', min)
+defineRule('max', max)
+
+configure({
+  generateMessage: localize({
+    ja,
+    zhTW
+  })
+  // 驗證時機,限<Field />使用
+  // validateOnInput: true,
+  // validateOnChange: true,
+  // validateOnBlur: true,
+  // validateOnModelUpdate: true,
+})
+
+setLocale('zhTW')
+
+const lang = ref('zhTW')
+
+const initialValues = {
+  email: 'test@email.com',
+  password: 'password'
+}
+
 const {
   // data,
   // error,
@@ -42,43 +68,16 @@ const {
   }
 })
 
-// mutate(variables, {
-//   onError,
-//   onSettled,
-//   onSuccess,
-// })
-
-defineRule('required', required)
-defineRule('email', email)
-defineRule('min', min)
-defineRule('max', max)
-
-configure({
-  generateMessage: localize({
-    ja,
-    zhTW
-  })
-  // 驗證時機,限<Field />使用
-  // validateOnInput: true,
-  // validateOnChange: true,
-  // validateOnBlur: true,
-  // validateOnModelUpdate: true,
-})
-
-setLocale('zhTW')
-
-const lang = ref('zhTW')
-
-const initialValues = {
-  email: 'test@email.com',
-  password: 'password'
-}
-
 function switchLanguage() {
   setLocale(lang.value)
 }
 
 function onSubmit(values: any) {
+  // mutate(variables, {
+  //   onError,
+  //   onSettled,
+  //   onSuccess,
+  // })
   mutate(values)
 }
 
