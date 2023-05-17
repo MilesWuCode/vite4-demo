@@ -39,13 +39,13 @@ const switchLanguage = () => {
 <template>
   <Form @submit="onSubmit">
     <div class="w-full max-w-xs form-control">
-      <!-- email -->
       <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="E-mail"
+        name="email"
+        label="E-mail"
         type="email"
         placeholder="Your Email"
         class="w-full max-w-xs input-bordered input"
@@ -54,17 +54,17 @@ const switchLanguage = () => {
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="text-red-500 label-text-alt">
-          <ErrorMessage name="E-mail" />
+          <ErrorMessage name="email" />
         </span>
       </label>
 
-      <!-- password -->
       <label class="label">
         <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="密碼"
+        name="password"
+        label="密碼"
         type="password"
         placeholder="Your Password"
         class="w-full max-w-xs input-bordered input"
@@ -72,11 +72,11 @@ const switchLanguage = () => {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="密碼" /></span>
+        <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
       </label>
 
       <label class="cursor-pointer label">
-        <span class="label-text">switch language</span>
+        <span class="label-text">Switch language</span>
         <input
           v-model="lang"
           type="checkbox"

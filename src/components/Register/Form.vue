@@ -96,7 +96,7 @@ const switchLanguage = () => {
       </label>
 
       <label class="label">
-        <span class="label-text">Password</span>
+        <span class="label-text">Comfirm Password</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
