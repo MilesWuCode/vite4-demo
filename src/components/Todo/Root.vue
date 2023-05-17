@@ -4,6 +4,17 @@ import { v4 as uuid } from 'uuid'
 import { type Todo, type Filter, useTodoStore } from '@/stores/todo'
 import Item from './Item.vue'
 
+defineOptions({
+  // 取名,devtools顯示
+  name: 'TodoRoot',
+  // 預設true,上層attrs傳入
+  // 使用v-bind="$attrs"顯示
+  inheritAttrs: true,
+  // 自訂義參數
+  // 使用$options.customOptions顯示
+  customOptions: {}
+})
+
 const store = useTodoStore()
 
 const input = ref('')
