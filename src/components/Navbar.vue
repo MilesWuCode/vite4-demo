@@ -14,7 +14,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="sticky top-0 h-16 bg-white border-b navbar border-gray">
+  <div class="sticky top-0 z-50 h-16 bg-white border-b navbar border-gray">
     <!-- left:menu -->
     <div class="flex-none space-x-2">
       <button
@@ -77,7 +77,7 @@ const emit = defineEmits<{
             </a>
           </li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li><button type="button">Logout</button></li>
         </ul>
       </div>
 

@@ -24,13 +24,13 @@ const closeBtn = ref()
     :open="show"
     :initialFocus="closeBtn"
     @close="toggle"
-    class="fixed inset-0 z-40 lg:hidden"
+    class="fixed inset-0 z-50 lg:hidden"
   >
     <!-- overlay -->
     <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
 
     <!-- panel -->
-    <DialogPanel class="relative z-10 flex flex-col h-full bg-white w-72">
+    <DialogPanel class="relative flex flex-col h-full bg-white w-72">
       <div class="h-16 space-x-2 border border-b navbar border-gray">
         <button
           type="button"
