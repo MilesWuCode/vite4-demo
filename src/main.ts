@@ -1,13 +1,10 @@
-import './assets/main.css'
-
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { createHead } from '@unhead/vue'
-
 import App from './App.vue'
 import router from './router'
-
+import { createApp } from 'vue'
+import { createHead } from '@unhead/vue'
+import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import './assets/main.css'
 
 const app = createApp(App)
 

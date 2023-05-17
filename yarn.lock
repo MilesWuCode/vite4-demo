@@ -253,7 +253,7 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.29.7.tgz#9fe4587e23cb9566b937c518ffa44226041d388d"
   integrity sha512-GXG4b5hV2Loir+h2G+RXhJdoZhJLnrBWsuLB2r0qBRyhWuXq9w/dWxzvpP89H0UARlH6Mr9DiVj4SMtpkF/aUA==
 
-"@tanstack/vue-query@^4.29.5":
+"@tanstack/vue-query@^4.29.7":
   version "4.29.7"
   resolved "https://registry.yarnpkg.com/@tanstack/vue-query/-/vue-query-4.29.7.tgz#4d8a3321d405373eb4e0444fe6bc3be20d76ccd6"
   integrity sha512-dVk2s5zcEtkDiNV4EFvKRiTnldNCcWh4P57QmxuBNZrJ2bncumVoWO1PAO8uPfucHV0qZtFWDyzXzHyrdkHK7g==

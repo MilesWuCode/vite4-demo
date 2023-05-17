@@ -5,6 +5,48 @@ import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import { required, email, min, max } from '@vee-validate/rules'
 import { ref } from 'vue'
+import axios from '@/utils/axios'
+import { useMutation } from '@tanstack/vue-query'
+
+const {
+  // data,
+  // error,
+  // isError,
+  // isIdle,
+  // isLoading,
+  // isPaused,
+  // isSuccess,
+  // failureCount,
+  // failureReason,
+  mutate
+  // mutateAsync,
+  // reset,
+  // status
+} = useMutation({
+  mutationFn: (formValues) => axios.post('/auth/login', formValues),
+  onMutate: (variables) => {
+    // A mutation is about to happen!
+
+    // Optionally return a context containing data to use when for example rolling back
+    return { id: 1 }
+  },
+  onError: (error, variables, context) => {
+    // An error happened!
+    console.log(`rolling back optimistic update with id ${context.id}`)
+  },
+  onSuccess: (data, variables, context) => {
+    // Boom baby!
+  },
+  onSettled: (data, error, variables, context) => {
+    // Error or success... doesn't matter!
+  }
+})
+
+// mutate(variables, {
+//   onError,
+//   onSettled,
+//   onSuccess,
+// })
 
 defineRule('required', required)
 defineRule('email', email)
@@ -27,7 +69,7 @@ setLocale('zhTW')
 
 const lang = ref('zhTW')
 
-const formValues = {
+const initialValues = {
   email: 'test@email.com',
   password: 'password'
 }
@@ -37,7 +79,7 @@ function switchLanguage() {
 }
 
 function onSubmit(values: any) {
-  console.log(values)
+  mutate(values)
 }
 
 function onInvalidSubmit({ values, errors, results }) {
@@ -54,7 +96,7 @@ function onInvalidSubmit({ values, errors, results }) {
 </script>
 
 <template>
-  <Form @submit="onSubmit" :initial-values="formValues" @invalid-submit="onInvalidSubmit">
+  <Form @submit="onSubmit" :initial-values="initialValues" @invalid-submit="onInvalidSubmit">
     <div class="w-full max-w-xs form-control">
       <label class="label">
         <span class="label-text">Email</span>
