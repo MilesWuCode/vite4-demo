@@ -34,10 +34,15 @@ const onSubmit = (values: any) => {
 const switchLanguage = () => {
   setLocale(lang.value)
 }
+
+const formValues = {
+  email: 'test@email.com',
+  password: 'password'
+}
 </script>
 
 <template>
-  <Form @submit="onSubmit">
+  <Form @submit="onSubmit" :initial-values="formValues">
     <div class="w-full max-w-xs form-control">
       <label class="label">
         <span class="label-text">Email</span>

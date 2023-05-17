@@ -28,17 +28,29 @@ setLocale('zhTW')
 
 const lang = ref('zhTW')
 
-const onSubmit = (values: any) => {
+function switchLanguage() {
+  setLocale(lang.value)
+}
+
+function onSubmit(values: any) {
   console.log(values)
 }
 
-const switchLanguage = () => {
-  setLocale(lang.value)
+function onInvalidSubmit({ values, errors, results }) {
+  for (var item in errors) {
+    document.getElementsByName(item)[0].focus()
+
+    break
+  }
+
+  console.log(values) // current form values
+  console.log(errors) // a map of field names and their first error message
+  console.log(results) // a detailed map of field names and their validation results
 }
 </script>
 
 <template>
-  <Form @submit="onSubmit">
+  <Form @submit="onSubmit" @invalid-submit="onInvalidSubmit">
     <div class="w-full max-w-xs form-control">
       <label class="label">
         <span class="label-text">Name</span>
