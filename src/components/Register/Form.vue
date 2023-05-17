@@ -18,7 +18,7 @@ configure({
     zhTW
   })
   // 驗證時機,限<Field />使用
-  // validateOnInput: true,
+  // validateOnInput: true
   // validateOnChange: true,
   // validateOnBlur: true,
   // validateOnModelUpdate: true,
@@ -135,11 +135,10 @@ function onInvalidSubmit({ values, errors, results }) {
           @change="switchLanguage"
         />
       </label>
-    </div>
 
-    <!-- submit -->
-    <div class="flex justify-end w-full max-w-xs">
-      <button type="submit" class="btn-primary btn">Submit</button>
+      <div class="flex justify-end">
+        <button type="submit" class="btn-primary btn">Submit</button>
+      </div>
     </div>
   </Form>
 </template>
