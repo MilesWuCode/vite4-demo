@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineRule, Field, Form, ErrorMessage, configure } from 'vee-validate'
+import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
@@ -7,6 +7,14 @@ import { required, email, min, max } from '@vee-validate/rules'
 import { ref } from 'vue'
 import axios from '@/utils/axios'
 import { useMutation } from '@tanstack/vue-query'
+import type { AxiosError } from 'axios'
+import { useRoute, useRouter } from 'vue-router'
+import Cookies from 'js-cookie'
+
+type FormType = {
+  email: string
+  password: string
+}
 
 defineRule('required', required)
 defineRule('email', email)
@@ -29,59 +37,71 @@ setLocale('zhTW')
 
 const lang = ref('zhTW')
 
+const route = useRoute()
+const router = useRouter()
+
+console.log(route.query.redirect)
+
+const { redirect } = route.query
+
 const initialValues = {
   email: 'test@email.com',
   password: 'password'
 }
 
-const {
-  // data,
-  // error,
-  // isError,
-  // isIdle,
-  // isLoading,
-  // isPaused,
-  // isSuccess,
-  // failureCount,
-  // failureReason,
-  mutate
-  // mutateAsync,
-  // reset,
-  // status
-} = useMutation({
-  mutationFn: (formValues) => axios.post('/api/auth/login', formValues),
+const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
+  initialValues: initialValues
+})
+
+const { mutate, isLoading } = useMutation({
+  mutationFn: (formValues: FormType) => axios.post('/api/auth/login', formValues),
   onMutate: (variables) => {
-    // A mutation is about to happen!
+    console.log('onMutate', variables)
+    // 送出前
 
     // Optionally return a context containing data to use when for example rolling back
     return { id: 1 }
   },
-  onError: (error, variables, context) => {
-    // An error happened!
-    console.log(`rolling back optimistic update with id ${context.id}`)
+  onError: (error: AxiosError, variables, context) => {
+    // 錯誤
+    console.log('onError', error, variables, context)
+
+    if (error.response?.status === 422) {
+      // 單欄位
+      // setFieldError('email', 'error')
+
+      // 多欄位
+      let responseData = error.response?.data as any
+
+      setErrors(responseData.errors)
+    } else {
+      alert('server error...')
+    }
   },
   onSuccess: (data, variables, context) => {
-    // Boom baby!
+    // 回傳
+    console.log('onSuccess', data, variables, context)
+
+    Cookies.set('token', data.data.token)
+
+    redirect && router.push(redirect as string)
   },
   onSettled: (data, error, variables, context) => {
-    // Error or success... doesn't matter!
+    // 結束
+    console.log('onSettled', data, error, variables, context)
   }
 })
+
+const onSubmit = handleSubmit((values) => {
+  mutate(values)
+}, onInvalidSubmit)
 
 function switchLanguage() {
   setLocale(lang.value)
 }
 
-function onSubmit(values: any) {
-  // mutate(variables, {
-  //   onError,
-  //   onSettled,
-  //   onSuccess,
-  // })
-  mutate(values)
-}
-
-function onInvalidSubmit({ values, errors, results }) {
+// 只能設any
+function onInvalidSubmit({ values, errors, results }: any) {
   for (var item in errors) {
     document.getElementsByName(item)[0].focus()
 
@@ -95,7 +115,7 @@ function onInvalidSubmit({ values, errors, results }) {
 </script>
 
 <template>
-  <Form :initial-values="initialValues" @submit="onSubmit" @invalid-submit="onInvalidSubmit">
+  <form @submit="onSubmit" novalidate>
     <div class="w-full max-w-xs form-control">
       <label class="label">
         <span class="label-text">Email</span>
@@ -148,7 +168,7 @@ function onInvalidSubmit({ values, errors, results }) {
 
     <!-- submit -->
     <div class="flex justify-end w-full max-w-xs">
-      <button type="submit" class="btn-primary btn">Submit</button>
+      <button type="submit" class="btn-primary btn" :disabled="isLoading">Submit</button>
     </div>
-  </Form>
+  </form>
 </template>

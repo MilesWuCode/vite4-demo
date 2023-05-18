@@ -50,7 +50,7 @@ const initialValues = {
   comfirm_password: 'password'
 }
 
-const { mutate, isloading } = useMutation({
+const { mutate, isLoading } = useMutation({
   mutationFn: (formValues: FormType) => axios.post('/api/auth/register', formValues),
   onMutate: (variables) => {
     console.log('onMutate', variables)
@@ -87,13 +87,13 @@ const { mutate, isloading } = useMutation({
   }
 })
 
-function switchLanguage() {
-  setLocale(lang.value)
-}
-
 // 只能設any
 const onSubmit = (values: any) => {
   mutate(values)
+}
+
+function switchLanguage() {
+  setLocale(lang.value)
 }
 
 // 只能設any
@@ -203,7 +203,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
       </label>
 
       <div class="flex justify-end">
-        <button type="submit" class="btn-primary btn" :disabled="isloading">Submit</button>
+        <button type="submit" class="btn-primary btn" :disabled="isLoading">Submit</button>
       </div>
     </div>
   </Form>
