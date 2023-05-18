@@ -32,6 +32,11 @@ const router = createRouter({
           path: 'todo',
           component: () => import('../views/TodoView.vue'),
           meta: { auth: 'member' }
+        },
+        {
+          path: 'post',
+          component: () => import('../views/PostView.vue'),
+          meta: { auth: 'member' }
         }
       ]
     },
