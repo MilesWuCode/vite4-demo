@@ -49,7 +49,7 @@ const {
   // reset,
   // status
 } = useMutation({
-  mutationFn: (formValues) => axios.post('/auth/login', formValues),
+  mutationFn: (formValues) => axios.post('/api/auth/login', formValues),
   onMutate: (variables) => {
     // A mutation is about to happen!
 
@@ -95,7 +95,7 @@ function onInvalidSubmit({ values, errors, results }) {
 </script>
 
 <template>
-  <Form @submit="onSubmit" :initial-values="initialValues" @invalid-submit="onInvalidSubmit">
+  <Form :initial-values="initialValues" @submit="onSubmit" @invalid-submit="onInvalidSubmit">
     <div class="w-full max-w-xs form-control">
       <label class="label">
         <span class="label-text">Email</span>

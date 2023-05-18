@@ -5,6 +5,17 @@ import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import { required, email, min, max, confirmed } from '@vee-validate/rules'
 import { ref } from 'vue'
+import axios from '@/utils/axios'
+import { useMutation } from '@tanstack/vue-query'
+import type { AxiosError } from 'axios'
+import { useRouter } from 'vue-router'
+
+type FormType = {
+  name: string
+  email: string
+  password: string
+  comfirm_password: string
+}
 
 defineRule('required', required)
 defineRule('email', email)
@@ -28,15 +39,65 @@ setLocale('zhTW')
 
 const lang = ref('zhTW')
 
+const formRef = ref()
+
+const router = useRouter()
+
+const initialValues = {
+  name: 'test',
+  email: 'test@email.com',
+  password: 'password',
+  comfirm_password: 'password'
+}
+
+const { mutate, isloading } = useMutation({
+  mutationFn: (formValues: FormType) => axios.post('/api/auth/register', formValues),
+  onMutate: (variables) => {
+    console.log('onMutate', variables)
+    // 送出前
+
+    // Optionally return a context containing data to use when for example rolling back
+    return { id: 1 }
+  },
+  onError: (error: AxiosError, variables, context) => {
+    // 錯誤
+    console.log('onError', error, variables, context)
+
+    if (error.response?.status === 422) {
+      // 單欄位
+      // formRef.value.setFieldError('email', 'error')
+
+      // 多欄位
+      let responseData = error.response?.data as any
+
+      formRef.value.setErrors(responseData.errors)
+    } else {
+      alert('server error...')
+    }
+  },
+  onSuccess: (data, variables, context) => {
+    // 回傳
+    console.log('onSuccess', data, variables, context)
+
+    router.push('/login')
+  },
+  onSettled: (data, error, variables, context) => {
+    // 結束
+    console.log('onSettled', data, error, variables, context)
+  }
+})
+
 function switchLanguage() {
   setLocale(lang.value)
 }
 
-function onSubmit(values: any) {
-  console.log(values)
+// 只能設any
+const onSubmit = (values: any) => {
+  mutate(values)
 }
 
-function onInvalidSubmit({ values, errors, results }) {
+// 只能設any
+function onInvalidSubmit({ values, errors, results }: any) {
   for (var item in errors) {
     document.getElementsByName(item)[0].focus()
 
@@ -50,7 +111,12 @@ function onInvalidSubmit({ values, errors, results }) {
 </script>
 
 <template>
-  <Form @submit="onSubmit" @invalid-submit="onInvalidSubmit">
+  <Form
+    :initial-values="initialValues"
+    @submit="onSubmit"
+    @invalid-submit="onInvalidSubmit"
+    ref="formRef"
+  >
     <div class="w-full max-w-xs form-control">
       <label class="label">
         <span class="label-text">Name</span>
@@ -137,7 +203,7 @@ function onInvalidSubmit({ values, errors, results }) {
       </label>
 
       <div class="flex justify-end">
-        <button type="submit" class="btn-primary btn">Submit</button>
+        <button type="submit" class="btn-primary btn" :disabled="isloading">Submit</button>
       </div>
     </div>
   </Form>
