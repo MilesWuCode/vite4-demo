@@ -59,12 +59,25 @@ router.beforeEach(async (to, from) => {
   // 檢查登入
   const isLogin = !!Cookies.get('token')
 
+  // 訪客進入登入頁
+  // 不可有to返回網址,不然會有無線迴圈
+  // 加上一頁返回頁網址
+  // 檢查有form返回網址優先使用
+  if (to.path === '/login' && !isLogin && !to.query.redirect) {
+    return {
+      path: '/login',
+      query: { redirect: from.query.redirect || from.fullPath }
+    }
+  }
+
   // 訪客專用
+  // 若有登入,返回原頁
   if (to.meta.auth === 'guest' && isLogin) {
     return from
   }
 
   // 會員專用
+  // 若未登入,先去登入頁,加返回原頁網址
   if (to.meta.auth === 'member' && !isLogin) {
     return {
       path: '/login',

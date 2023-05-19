@@ -38,9 +38,8 @@ setLocale('zhTW')
 const lang = ref('zhTW')
 
 const route = useRoute()
-const router = useRouter()
 
-console.log(route.query.redirect)
+const router = useRouter()
 
 const { redirect } = route.query
 
