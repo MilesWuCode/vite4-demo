@@ -16,7 +16,7 @@ const router = createRouter({
         {
           path: '',
           component: IndexView,
-          meta: { auth: 'all' }
+          meta: { auth: 'public' }
         },
         {
           path: 'login',
@@ -69,9 +69,16 @@ router.beforeEach(async (to, from) => {
   // 加上一頁返回頁網址
   // 檢查有form返回網址優先使用
   if (to.path === '/login' && !isLogin && !to.query.redirect) {
-    return {
-      path: '/login',
-      query: { redirect: from.query.redirect || from.fullPath }
+    if (from.path !== '/login' && from.meta.auth === 'guest') {
+      return {
+        path: '/login',
+        query: { redirect: '/' }
+      }
+    } else {
+      return {
+        path: '/login',
+        query: { redirect: from.query.redirect || from.fullPath }
+      }
     }
   }
 

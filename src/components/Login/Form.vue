@@ -91,7 +91,7 @@ const { mutate, isLoading } = useMutation({
 
     authStore.checkState()
 
-    redirect && router.push(redirect as string)
+    router.push((redirect as string) || '/')
 
     notyf.success('you are login')
   },
