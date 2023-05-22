@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import { createHead } from '@unhead/vue'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import 'notyf/notyf.min.css'
 import './assets/main.css'
 
 const app = createApp(App)

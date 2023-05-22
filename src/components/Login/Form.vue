@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
+import { Notyf } from 'notyf'
 import { ref } from 'vue'
 import { required, email, min, max } from '@vee-validate/rules'
 import { useAuthStore } from '@/stores/auth'
@@ -44,6 +45,8 @@ const router = useRouter()
 
 const authStore = useAuthStore()
 
+const notyf = new Notyf()
+
 const { redirect } = route.query
 
 const initialValues = {
@@ -77,7 +80,7 @@ const { mutate, isLoading } = useMutation({
 
       setErrors(responseData.errors)
     } else {
-      alert('server error...')
+      notyf.error('server error...')
     }
   },
   onSuccess: (data, variables, context) => {
@@ -89,6 +92,8 @@ const { mutate, isLoading } = useMutation({
     authStore.checkState()
 
     redirect && router.push(redirect as string)
+
+    notyf.success('you are login')
   },
   onSettled: (data, error, variables, context) => {
     // 結束

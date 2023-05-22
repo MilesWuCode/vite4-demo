@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { defineRule, Field, Form, ErrorMessage, configure } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import ja from '@vee-validate/i18n/dist/locale/ja.json'
-import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
-import { required, email, min, max, confirmed } from '@vee-validate/rules'
+import { Notyf } from 'notyf'
 import { ref } from 'vue'
-import axios from '@/utils/axios'
+import { required, email, min, max, confirmed } from '@vee-validate/rules'
 import { useMutation } from '@tanstack/vue-query'
-import type { AxiosError } from 'axios'
 import { useRouter } from 'vue-router'
+import axios from '@/utils/axios'
+import ja from '@vee-validate/i18n/dist/locale/ja.json'
+import type { AxiosError } from 'axios'
+import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
 type FormType = {
   name: string
@@ -43,6 +44,8 @@ const formRef = ref()
 
 const router = useRouter()
 
+const notyf = new Notyf()
+
 const initialValues = {
   name: 'test',
   email: 'test@email.com',
@@ -72,7 +75,7 @@ const { mutate, isLoading } = useMutation({
 
       formRef.value.setErrors(responseData.errors)
     } else {
-      alert('server error...')
+      notyf.error('server error...')
     }
   },
   onSuccess: (data, variables, context) => {
