@@ -12,7 +12,7 @@ type User = {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const isLogin = ref(!!Cookies.get('token'))
+  const isLogin = ref(false)
 
   const user = ref<User | null>(null)
 
@@ -20,6 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     const state = !!Cookies.get('token')
 
     if (state === isLogin.value) {
+      console.log(state, isLogin.value)
       // 沒變動
       return
     } else {

@@ -59,7 +59,7 @@ router.beforeEach(async (to, from) => {
   const authStore = useAuthStore()
 
   // 進入頁面檢查
-  authStore.checkState()
+  await authStore.checkState()
 
   // 是否登入
   const isLogin = authStore.isLogin
