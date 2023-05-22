@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
-import IndexView from '../views/IndexView.vue'
-import NotFoundView from '../views/NotFoundView.vue'
+import Index from '../views/index.vue'
+import NotFound from '../views/not-found.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,27 +15,27 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component: IndexView,
+          component: Index,
           meta: { auth: 'public' }
         },
         {
           path: 'login',
-          component: () => import('../views/LoginView.vue'),
+          component: () => import('../views/login.vue'),
           meta: { auth: 'guest' }
         },
         {
           path: 'register',
-          component: () => import('../views/RegisterView.vue'),
+          component: () => import('../views/register.vue'),
           meta: { auth: 'guest' }
         },
         {
           path: 'todo',
-          component: () => import('../views/TodoView.vue'),
+          component: () => import('../views/todo.vue'),
           meta: { auth: 'member' }
         },
         {
           path: 'post',
-          component: () => import('../views/PostView.vue'),
+          component: () => import('../views/post.vue'),
           meta: { auth: 'member' }
         }
       ]
@@ -46,12 +46,12 @@ const router = createRouter({
       children: [
         {
           path: 'about',
-          component: () => import('../views/AboutView.vue'),
+          component: () => import('../views/about.vue'),
           meta: { auth: 'all' }
         }
       ]
     },
-    { path: '/:pathMatch(.*)*', component: NotFoundView }
+    { path: '/:pathMatch(.*)*', component: NotFound }
   ]
 })
 
