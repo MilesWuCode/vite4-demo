@@ -1,8 +1,8 @@
-import Cookies from 'js-cookie'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import IndexView from '../views/IndexView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuth } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,8 +56,13 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  // 檢查登入
-  const isLogin = !!Cookies.get('token')
+  const auth = useAuth()
+
+  // 進入頁面檢查
+  auth.checkState()
+
+  // 是否登入
+  const isLogin = auth.isLogin
 
   // 訪客進入登入頁
   // 不可有to返回網址,不然會有無線迴圈

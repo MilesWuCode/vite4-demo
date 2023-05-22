@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import Cookies from 'js-cookie'
-import { ref } from 'vue'
-const isLogin = ref(!!Cookies.get('token'))
+import { useLogout } from '@/composables/useLogout'
+import { useAuth } from '@/stores/auth'
+
+const auth = useAuth()
+
+const logout = useLogout()
 </script>
 
 <template>
-  <div v-if="isLogin" class="dropdown dropdown-end">
+  <div v-if="auth.isLogin" class="dropdown dropdown-end">
     <label tabindex="0" class="btn btn-circle btn-ghost avatar">
       <div class="rounded-full">
         <img src="/cat01.jpg" />
@@ -22,7 +25,9 @@ const isLogin = ref(!!Cookies.get('token'))
         </a>
       </li>
       <li><a>Settings</a></li>
-      <li><button type="button">Logout</button></li>
+      <li>
+        <button type="button" @click="logout">Logout</button>
+      </li>
     </ul>
   </div>
 </template>
