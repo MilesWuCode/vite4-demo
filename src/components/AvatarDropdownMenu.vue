@@ -1,17 +1,35 @@
 <script setup lang="ts">
-import { useLogout } from '@/composables/useLogout'
-import { useAuth } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
+import { useRoute, useRouter } from 'vue-router'
 
-const auth = useAuth()
+const authStore = useAuthStore()
 
-const logout = useLogout()
+const route = useRoute()
+
+const router = useRouter()
+
+// 不使用computed
+// const isLogin = computed(() => authStore.isLogin)
+// const user = computed(() => authStore.user)
+// 改用storeToRefs
+const { isLogin, user } = storeToRefs(authStore)
+
+// 登出
+async function logout() {
+  // store登出
+  await authStore.logout()
+
+  // 登出後判別是否在會員專用
+  route.meta.auth == 'member' && router.go(0)
+}
 </script>
 
 <template>
-  <div v-if="auth.isLogin" class="dropdown dropdown-end">
+  <div v-if="isLogin" class="dropdown dropdown-end">
     <label tabindex="0" class="btn btn-circle btn-ghost avatar">
       <div class="rounded-full">
-        <img src="/cat01.jpg" />
+        <img :src="user?.avatar" />
       </div>
     </label>
     <ul

@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import ja from '@vee-validate/i18n/dist/locale/ja.json'
-import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
-import { required, email, min, max } from '@vee-validate/rules'
 import { ref } from 'vue'
-import axios from '@/utils/axios'
+import { required, email, min, max } from '@vee-validate/rules'
+import { useAuthStore } from '@/stores/auth'
 import { useMutation } from '@tanstack/vue-query'
-import type { AxiosError } from 'axios'
 import { useRoute, useRouter } from 'vue-router'
+import axios from '@/utils/axios'
 import Cookies from 'js-cookie'
+import ja from '@vee-validate/i18n/dist/locale/ja.json'
+import type { AxiosError } from 'axios'
+import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
 type FormType = {
   email: string
@@ -40,6 +41,8 @@ const lang = ref('zhTW')
 const route = useRoute()
 
 const router = useRouter()
+
+const authStore = useAuthStore()
 
 const { redirect } = route.query
 
@@ -82,6 +85,8 @@ const { mutate, isLoading } = useMutation({
     console.log('onSuccess', data, variables, context)
 
     Cookies.set('token', data.data.token)
+
+    authStore.checkState()
 
     redirect && router.push(redirect as string)
   },
