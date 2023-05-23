@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import DefaultLayout from '../layouts/DefaultLayout.vue'
+import Default from '../layouts/default.vue'
 import Index from '../views/index.vue'
 import NotFound from '../views/[...all].vue'
 
@@ -13,7 +13,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: DefaultLayout,
+      component: Default,
       children: [
         {
           path: '',
@@ -44,7 +44,7 @@ const router = createRouter({
     },
     {
       path: '/post',
-      component: () => import('../layouts/DefaultLayout.vue'),
+      component: () => import('../layouts/Default.vue'),
       children: [
         {
           path: '',
@@ -60,18 +60,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('../layouts/OtherLayout.vue'),
-      children: [
-        {
-          path: 'about',
-          component: () => import('../views/about.vue'),
-          meta: { auth: 'all' }
-        }
-      ]
-    },
-    {
-      path: '/',
-      component: () => import('../layouts/DefaultLayout.vue'),
+      component: () => import('../layouts/Default.vue'),
       children: [
         {
           path: '/:pathMatch(.*)*',
@@ -80,7 +69,6 @@ const router = createRouter({
         }
       ]
     }
-    // { path: '/:pathMatch(.*)*', component: NotFound }
   ]
 })
 
