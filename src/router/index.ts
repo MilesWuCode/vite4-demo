@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import Default from '../layouts/default.vue'
-import Index from '../views/index.vue'
-import NotFound from '../views/[...all].vue'
+
+// Nested Routes使用才有linkActiveClass,linkExactActiveClass
+// linkActiveClass,linkExactActiveClass需要不同class加入到<RouterLink/>
+
+// routes[?].component是layout組件
+// children陣列是用來設定nested關係
+// 實作上是每頁有獨立的layout組件
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,13 +15,24 @@ const router = createRouter({
   // 準確
   linkExactActiveClass: 'active',
   routes: [
+    // {
+    //   path: '/',
+    //   component: () => import('../layouts/default.vue'),
+    //   children: [
+    //     {
+    //       path: '',
+    //       component: () => import('../views/index.vue'),
+    //       meta: { auth: 'public' }
+    //     }
+    //   ]
+    // },
     {
       path: '/',
-      component: Default,
+      component: () => import('../layouts/default.vue'),
       children: [
         {
           path: '',
-          component: Index,
+          component: () => import('../views/index.vue'),
           meta: { auth: 'public' }
         },
         {
@@ -44,7 +59,7 @@ const router = createRouter({
     },
     {
       path: '/post',
-      component: () => import('../layouts/Default.vue'),
+      component: () => import('../layouts/default.vue'),
       children: [
         {
           path: '',
@@ -60,11 +75,11 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('../layouts/Default.vue'),
+      component: () => import('../layouts/default.vue'),
       children: [
         {
           path: '/:pathMatch(.*)*',
-          component: NotFound,
+          component: () => import('../views/[...all].vue'),
           meta: { auth: 'all' }
         }
       ]
