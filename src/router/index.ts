@@ -2,14 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import Index from '../views/index.vue'
-import NotFound from '../views/404.vue'
+import NotFound from '../views/[...all].vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // 模糊
-  linkActiveClass: 'bg-red-500 text-white',
+  linkActiveClass: 'active',
   // 準確
-  linkExactActiveClass: '!active',
+  linkExactActiveClass: 'active',
   routes: [
     {
       path: '/',
@@ -69,7 +69,18 @@ const router = createRouter({
         }
       ]
     },
-    { path: '/:pathMatch(.*)*', component: NotFound }
+    {
+      path: '/',
+      component: () => import('../layouts/DefaultLayout.vue'),
+      children: [
+        {
+          path: '/:pathMatch(.*)*',
+          component: NotFound,
+          meta: { auth: 'all' }
+        }
+      ]
+    }
+    // { path: '/:pathMatch(.*)*', component: NotFound }
   ]
 })
 

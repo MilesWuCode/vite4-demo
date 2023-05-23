@@ -20,7 +20,6 @@ export const useAuthStore = defineStore('auth', () => {
     const state = !!Cookies.get('token')
 
     if (state === isLogin.value) {
-      console.log(state, isLogin.value)
       // 沒變動
       return
     } else {

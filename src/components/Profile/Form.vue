@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import { Notyf } from 'notyf'
+import notyf from '@/utils/notyf'
 import { ref } from 'vue'
 import { required, email, min, max } from '@vee-validate/rules'
 import { useAuthStore } from '@/stores/auth'
@@ -45,7 +45,7 @@ const router = useRouter()
 
 const authStore = useAuthStore()
 
-const notyf = new Notyf()
+// const notyf = new Notyf()
 
 const { redirect } = route.query
 
