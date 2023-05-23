@@ -6,8 +6,10 @@ import NotFound from '../views/404.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  linkActiveClass: 'active',
-  linkExactActiveClass: 'active',
+  // 模糊
+  linkActiveClass: 'bg-red-500 text-white',
+  // 準確
+  linkExactActiveClass: '!active',
   routes: [
     {
       path: '/',
@@ -29,13 +31,29 @@ const router = createRouter({
           meta: { auth: 'guest' }
         },
         {
-          path: 'todo',
-          component: () => import('../views/todo.vue'),
+          path: 'profile',
+          component: () => import('../views/profile.vue'),
           meta: { auth: 'member' }
         },
         {
-          path: 'post',
-          component: () => import('../views/post.vue'),
+          path: 'todo',
+          component: () => import('../views/todo.vue'),
+          meta: { auth: 'member' }
+        }
+      ]
+    },
+    {
+      path: '/post',
+      component: () => import('../layouts/DefaultLayout.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('../views/post/index.vue'),
+          meta: { auth: 'member' }
+        },
+        {
+          path: ':id',
+          component: () => import('../views/post/[id].vue'),
           meta: { auth: 'member' }
         }
       ]

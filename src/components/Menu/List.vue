@@ -5,8 +5,10 @@ const menu = reactive([
   { name: 'Index', href: '/' },
   { name: 'Login', href: '/login' },
   { name: 'Register', href: '/register' },
+  { name: 'Profile', href: '/profile' },
   { name: 'Todo', href: '/todo' },
   { name: 'Post', href: '/post' },
+  { name: 'Post#3', href: '/post/3' },
   { name: 'Not Found', href: '/not-found' }
 ])
 </script>
