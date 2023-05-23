@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import notyf from '@/utils/notyf'
 import { ref } from 'vue'
 import { required, email, min, max } from '@vee-validate/rules'
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
+import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
@@ -47,6 +47,8 @@ const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
   initialValues: initialValues
 })
 
+const queryClient = useQueryClient()
+
 const { mutate, isLoading } = useMutation({
   mutationFn: (formValues: FormType) => axios.put('/api/me', formValues),
   onMutate: (variables) => {
@@ -75,6 +77,9 @@ const { mutate, isLoading } = useMutation({
   onSuccess: (data, variables, context) => {
     // 回傳
     console.log('onSuccess', data, variables, context)
+
+    // 重新抓取
+    queryClient.invalidateQueries(['profile'])
 
     notyf.success('updated')
   },

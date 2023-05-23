@@ -11,7 +11,6 @@ type Profile = {
 
 const fetchProfile = () => {
   return axios.get('/api/me').then(({ data }) => {
-    console.log(1)
     return {
       id: get(data, 'data.id', ''),
       name: get(data, 'data.name', '')
