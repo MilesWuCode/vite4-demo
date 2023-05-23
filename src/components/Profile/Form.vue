@@ -4,11 +4,8 @@ import { localize, setLocale } from '@vee-validate/i18n'
 import notyf from '@/utils/notyf'
 import { ref } from 'vue'
 import { required, email, min, max } from '@vee-validate/rules'
-import { useAuthStore } from '@/stores/auth'
 import { useMutation } from '@tanstack/vue-query'
-import { useRoute, useRouter } from 'vue-router'
 import axios from '@/utils/axios'
-import Cookies from 'js-cookie'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
@@ -42,14 +39,6 @@ setLocale('zhTW')
 
 const lang = ref('zhTW')
 
-const route = useRoute()
-
-const router = useRouter()
-
-const authStore = useAuthStore()
-
-const { redirect } = route.query
-
 const initialValues = {
   name: props.data.name
 }
@@ -59,7 +48,7 @@ const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
 })
 
 const { mutate, isLoading } = useMutation({
-  mutationFn: (formValues: FormType) => axios.post('/api/me', formValues),
+  mutationFn: (formValues: FormType) => axios.put('/api/me', formValues),
   onMutate: (variables) => {
     console.log('onMutate', variables)
     // 送出前
@@ -87,13 +76,7 @@ const { mutate, isLoading } = useMutation({
     // 回傳
     console.log('onSuccess', data, variables, context)
 
-    Cookies.set('token', data.data.token)
-
-    authStore.checkState()
-
-    router.push((redirect as string) || '/')
-
-    notyf.success('you are login')
+    notyf.success('updated')
   },
   onSettled: (data, error, variables, context) => {
     // 結束
