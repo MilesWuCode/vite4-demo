@@ -13,9 +13,12 @@ import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
+const props = defineProps<{
+  data: { id: number | string; name: string }
+}>()
+
 type FormType = {
-  email: string
-  password: string
+  name: string
 }
 
 defineRule('required', required)
@@ -45,13 +48,10 @@ const router = useRouter()
 
 const authStore = useAuthStore()
 
-// const notyf = new Notyf()
-
 const { redirect } = route.query
 
 const initialValues = {
-  name: 'test@email.com',
-  password: 'password'
+  name: props.data.name
 }
 
 const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
@@ -59,7 +59,7 @@ const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
 })
 
 const { mutate, isLoading } = useMutation({
-  mutationFn: (formValues: FormType) => axios.post('/api/auth/login', formValues),
+  mutationFn: (formValues: FormType) => axios.post('/api/me', formValues),
   onMutate: (variables) => {
     console.log('onMutate', variables)
     // 送出前
@@ -80,7 +80,7 @@ const { mutate, isLoading } = useMutation({
 
       setErrors(responseData.errors)
     } else {
-      notyf.error('server error...')
+      notyf.error(error.message)
     }
   },
   onSuccess: (data, variables, context) => {
@@ -127,51 +127,22 @@ function onInvalidSubmit({ values, errors, results }: any) {
   <form @submit="onSubmit" novalidate>
     <div class="w-full max-w-xs form-control">
       <label class="label">
-        <span class="label-text">Email</span>
+        <span class="label-text">Name</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="email"
-        label="E-mail"
-        type="email"
-        placeholder="Your Email"
+        name="name"
+        label="名字"
+        type="text"
+        placeholder="Your Name"
         class="w-full max-w-xs input-bordered input"
-        rules="required|email"
+        rules="required|max:20"
       />
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="text-red-500 label-text-alt">
-          <ErrorMessage name="email" />
+          <ErrorMessage name="name" />
         </span>
-      </label>
-
-      <label class="label">
-        <span class="label-text">Password</span>
-        <span class="label-text-alt"></span>
-      </label>
-      <Field
-        name="password"
-        label="密碼"
-        type="password"
-        placeholder="Your Password"
-        class="w-full max-w-xs input-bordered input"
-        rules="required|min:8|max:32"
-      />
-      <label class="label">
-        <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
-      </label>
-
-      <label class="cursor-pointer label">
-        <span class="label-text">Switch language</span>
-        <input
-          v-model="lang"
-          type="checkbox"
-          class="toggle"
-          true-value="zhTW"
-          false-value="ja"
-          @change="switchLanguage"
-        />
       </label>
     </div>
 

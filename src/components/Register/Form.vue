@@ -44,8 +44,6 @@ const formRef = ref()
 
 const router = useRouter()
 
-// const notyf = new Notyf()
-
 const initialValues = {
   name: 'test',
   email: 'test@email.com',

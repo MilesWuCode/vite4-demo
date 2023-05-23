@@ -45,8 +45,6 @@ const router = useRouter()
 
 const authStore = useAuthStore()
 
-// const notyf = new Notyf()
-
 const { redirect } = route.query
 
 const initialValues = {
