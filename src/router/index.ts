@@ -1,12 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-
-// Nested Routes使用才有linkActiveClass,linkExactActiveClass
-// linkActiveClass,linkExactActiveClass需要不同class加入到<RouterLink/>
-
-// routes[?].component是layout組件
-// children陣列是用來設定nested關係
-// 實作上是每頁有獨立的layout組件
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,77 +9,7 @@ const router = createRouter({
   linkActiveClass: 'active',
   // 準確
   linkExactActiveClass: 'active',
-  routes: [
-    // {
-    //   path: '/',
-    //   component: () => import('../layouts/default.vue'),
-    //   children: [
-    //     {
-    //       path: '',
-    //       component: () => import('../views/index.vue'),
-    //       meta: { auth: 'public' }
-    //     }
-    //   ]
-    // },
-    {
-      path: '/',
-      component: () => import('../layouts/default.vue'),
-      children: [
-        {
-          path: '',
-          component: () => import('../views/index.vue'),
-          meta: { auth: 'public' }
-        },
-        {
-          path: 'login',
-          component: () => import('../views/login.vue'),
-          meta: { auth: 'guest' }
-        },
-        {
-          path: 'register',
-          component: () => import('../views/register.vue'),
-          meta: { auth: 'guest' }
-        },
-        {
-          path: 'profile',
-          component: () => import('../views/profile.vue'),
-          meta: { auth: 'member' }
-        },
-        {
-          path: 'todo',
-          component: () => import('../views/todo.vue'),
-          meta: { auth: 'member' }
-        }
-      ]
-    },
-    {
-      path: '/post',
-      component: () => import('../layouts/default.vue'),
-      children: [
-        {
-          path: '',
-          component: () => import('../views/post/index.vue'),
-          meta: { auth: 'member' }
-        },
-        {
-          path: ':id',
-          component: () => import('../views/post/[id].vue'),
-          meta: { auth: 'member' }
-        }
-      ]
-    },
-    {
-      path: '/',
-      component: () => import('../layouts/default.vue'),
-      children: [
-        {
-          path: '/:pathMatch(.*)*',
-          component: () => import('../views/[...all].vue'),
-          meta: { auth: 'all' }
-        }
-      ]
-    }
-  ]
+  routes: setupLayouts(generatedRoutes)
 })
 
 router.beforeEach(async (to, from) => {

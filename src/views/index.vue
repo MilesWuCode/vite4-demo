@@ -9,3 +9,9 @@ useHead({
 <template>
   <h1 class="text-3xl">Index</h1>
 </template>
+
+<route lang="yaml">
+meta:
+  layout: default
+  auth: public
+</route>
