@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "vue.volar",
-    "vue.vscode-typescript-vue-plugin",
-    "miclo.sort-typescript-imports"
+    "vue.vscode-typescript-vue-plugin"
   ]
 }
