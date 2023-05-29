@@ -5,6 +5,7 @@ import { createHead } from '@unhead/vue'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import './assets/main.css'
+import './assets/nprogress.css'
 
 const app = createApp(App)
 

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
+import NProgress from 'nprogress'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
+  // 進度條開始
+  NProgress.configure({ showSpinner: false }).start()
+
   const authStore = useAuthStore()
 
   // 進入頁面檢查
@@ -53,6 +57,11 @@ router.beforeEach(async (to, from) => {
       query: { redirect: to.fullPath }
     }
   }
+})
+
+router.afterEach(() => {
+  // 進度條結束
+  NProgress.done()
 })
 
 export default router
