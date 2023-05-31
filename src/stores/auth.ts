@@ -31,7 +31,6 @@ export const useAuthStore = defineStore('auth', () => {
     if (state) {
       // true值更新資料
       await axios.get('/api/me').then(({ data }) => {
-        console.log(data)
         user.value = {
           id: get(data, 'data.id', ''),
           name: get(data, 'data.name', ''),
