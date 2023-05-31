@@ -5,6 +5,7 @@ const menu = reactive([
   { name: 'Index', href: '/' },
   { name: 'Login', href: '/login' },
   { name: 'Register', href: '/register' },
+  { name: 'VerifyEmail', href: '/verify-email' },
   { name: 'Profile', href: '/profile' },
   { name: 'Todo', href: '/todo' },
   { name: 'Post', href: '/post' },

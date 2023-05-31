@@ -47,6 +47,11 @@ const router = createRouter({
           meta: { auth: 'guest' }
         },
         {
+          path: 'verify-email',
+          component: () => import('../views/verify-email.vue'),
+          meta: { auth: 'public' }
+        },
+        {
           path: 'profile',
           component: () => import('../views/profile.vue'),
           meta: { auth: 'member' }
