@@ -44,16 +44,11 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logout() {
-    await axios
-      .post('/api/auth/logout')
-      .catch(() => {
-        alert('server error')
-      })
-      .finally(() => {
-        Cookies.remove('token')
+    await axios.post('/api/auth/logout').finally(() => {
+      Cookies.remove('token')
 
-        isLogin.value = false
-      })
+      isLogin.value = false
+    })
   }
 
   return { isLogin, user, checkState, logout }

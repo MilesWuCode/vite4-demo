@@ -6,15 +6,10 @@ export const useLogout = () => {
   const router = useRouter()
 
   return async () => {
-    await axios
-      .post('/api/auth/logout')
-      .catch(() => {
-        alert('server error')
-      })
-      .finally(() => {
-        Cookies.remove('token')
+    await axios.post('/api/auth/logout').finally(() => {
+      Cookies.remove('token')
 
-        router.go(0)
-      })
+      router.go(0)
+    })
   }
 }
