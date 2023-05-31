@@ -1,8 +1,12 @@
 <template>
-  <div class="form-control">
+  <div class="w-full max-w-xs form-control">
+    <label class="label">
+      <span class="label-text">Verify Email</span>
+      <span class="label-text-alt"></span>
+    </label>
     <div class="input-group">
-      <input type="text" placeholder="Search…" class="input input-bordered" />
-      <button class="btn btn-square">
+      <input type="text" class="w-full max-w-xs input input-bordered" />
+      <button type="button" class="btn btn-square">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="w-6 h-6"
@@ -19,5 +23,9 @@
         </svg>
       </button>
     </div>
+    <label class="label">
+      <span class="label-text-alt"></span>
+      <span class="text-red-500 label-text-alt"></span>
+    </label>
   </div>
 </template>

@@ -9,6 +9,7 @@ import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
+import EmailVerifyInput from '@/components/Profile/EmailVerifyInput.vue'
 
 const props = defineProps<{
   data: { id: number | string; name: string }
@@ -131,6 +132,8 @@ function onInvalidSubmit({ values, errors, results }: any) {
         </span>
       </label>
     </div>
+
+    <EmailVerifyInput />
 
     <!-- submit -->
     <div class="flex justify-end w-full max-w-xs">
