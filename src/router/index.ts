@@ -52,6 +52,16 @@ const router = createRouter({
           meta: { auth: 'public' }
         },
         {
+          path: 'forgot-password',
+          component: () => import('../views/forgot-password.vue'),
+          meta: { auth: 'guest' }
+        },
+        {
+          path: 'reset-password',
+          component: () => import('../views/reset-password.vue'),
+          meta: { auth: 'guest' }
+        },
+        {
           path: 'profile',
           component: () => import('../views/profile.vue'),
           meta: { auth: 'member' }

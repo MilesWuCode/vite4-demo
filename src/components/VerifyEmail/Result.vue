@@ -3,7 +3,6 @@ import { useMutation } from '@tanstack/vue-query'
 import { useRoute } from 'vue-router'
 import axios from '@/utils/axios'
 import type { AxiosError } from 'axios'
-import { ref } from 'vue'
 
 const route = useRoute()
 
