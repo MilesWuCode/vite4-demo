@@ -1,3 +1,4 @@
+// 未使用
 // 使用layouts,pages套件
 
 import { createRouter, createWebHistory } from 'vue-router'
@@ -68,3 +69,10 @@ router.afterEach(() => {
 })
 
 export default router
+
+// 每個頁面加入meta參數
+// <route lang="yaml">
+// meta:
+//   layout: default|other
+//   auth: public|guest|member
+// </route>

@@ -38,9 +38,3 @@ const { isLoading, isError, data, error } = useQuery<Profile, Error>({
     <ProfileForm :data="data" class="max-w-sm mx-auto" />
   </template>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: default
-  auth: member
-</route>
