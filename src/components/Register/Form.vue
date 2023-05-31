@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { defineRule, Field, Form, ErrorMessage, configure } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import notyf from '@/utils/notyf'
 import { ref } from 'vue'
 import { required, email, min, max, confirmed } from '@vee-validate/rules'
 import { useMutation } from '@tanstack/vue-query'
