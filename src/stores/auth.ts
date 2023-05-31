@@ -9,6 +9,7 @@ type User = {
   name: string
   email: string
   avatar: string
+  email_verified_at: string
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -30,11 +31,13 @@ export const useAuthStore = defineStore('auth', () => {
     if (state) {
       // true值更新資料
       await axios.get('/api/me').then(({ data }) => {
+        console.log(data)
         user.value = {
           id: get(data, 'data.id', ''),
           name: get(data, 'data.name', ''),
           email: get(data, 'data.email', ''),
-          avatar: get(data, 'data.avatar', '')
+          avatar: get(data, 'data.avatar', ''),
+          email_verified_at: get(data, 'data.email_verified_at')
         }
       })
     } else {
