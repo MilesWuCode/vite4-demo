@@ -70,8 +70,6 @@ const { mutate, isLoading } = useMutation({
       let responseData = error.response?.data as any
 
       setErrors(responseData.errors)
-    } else {
-      notyf.error(error.message)
     }
   },
   onSuccess: (data, variables, context) => {

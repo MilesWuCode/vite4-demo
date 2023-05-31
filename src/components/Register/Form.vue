@@ -72,8 +72,6 @@ const { mutate, isLoading } = useMutation({
       let responseData = error.response?.data as any
 
       formRef.value.setErrors(responseData.errors)
-    } else {
-      notyf.error('server error...')
     }
   },
   onSuccess: (data, variables, context) => {

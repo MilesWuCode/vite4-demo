@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import notyf from '@/utils/notyf'
 
 const instance = axios.create({
   withCredentials: true,
@@ -30,6 +31,18 @@ instance.interceptors.response.use(
     return response
   },
   function (error) {
+    // if (error.response.status === 429) {
+    //   notyf.error('請求次數太多')
+    // }
+
+    if (![401, 422].includes(error.response.status)) {
+      if (error.response.data.message) {
+        notyf.error(error.response.data.message)
+      } else {
+        notyf.error('unknow error')
+      }
+    }
+
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error)
