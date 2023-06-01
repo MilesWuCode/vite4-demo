@@ -31,18 +31,13 @@ const { mutate, isLoading } = useMutation({
 </script>
 
 <template>
-  <div class="w-full max-w-xs form-control">
+  <div class="w-full max-w-sm form-control">
     <label class="label">
       <span class="label-text">Verify Email</span>
       <span class="label-text-alt"></span>
     </label>
     <div class="input-group">
-      <input
-        type="text"
-        class="w-full max-w-xs input input-bordered"
-        readonly
-        :value="user?.email"
-      />
+      <input type="text" class="w-full input input-bordered" readonly :value="user?.email" />
       <button
         v-if="!user?.email_verified_at"
         type="button"

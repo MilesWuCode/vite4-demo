@@ -115,7 +115,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
     @invalid-submit="onInvalidSubmit"
     ref="formRef"
   >
-    <div class="w-full max-w-xs form-control">
+    <div class="w-full max-w-sm form-control">
       <label class="label">
         <span class="label-text">Name</span>
         <span class="label-text-alt"></span>
@@ -125,7 +125,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="名字"
         type="text"
         placeholder="Your Name"
-        class="w-full max-w-xs input-bordered input"
+        class="input-bordered input"
         rules="required|max:20"
       />
       <label class="label">
@@ -134,7 +134,9 @@ function onInvalidSubmit({ values, errors, results }: any) {
           <ErrorMessage name="name" />
         </span>
       </label>
+    </div>
 
+    <div class="w-full max-w-sm form-control">
       <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
@@ -144,7 +146,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="E-mail"
         type="email"
         placeholder="Your Email"
-        class="w-full max-w-xs input-bordered input"
+        class="input-bordered input"
         rules="required|email"
       />
       <label class="label">
@@ -153,7 +155,9 @@ function onInvalidSubmit({ values, errors, results }: any) {
           <ErrorMessage name="email" />
         </span>
       </label>
+    </div>
 
+    <div class="w-full max-w-sm form-control">
       <label class="label">
         <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
@@ -163,14 +167,16 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="密碼"
         type="password"
         placeholder="Your Password"
-        class="w-full max-w-xs input-bordered input"
+        class="input-bordered input"
         rules="required|min:8|max:32"
       />
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
       </label>
+    </div>
 
+    <div class="w-full max-w-sm form-control">
       <label class="label">
         <span class="label-text">Comfirm Password</span>
         <span class="label-text-alt"></span>
@@ -180,14 +186,16 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="確認密碼"
         type="password"
         placeholder="Comfirm Password"
-        class="w-full max-w-xs input-bordered input"
+        class="input-bordered input"
         rules="confirmed:@password"
       />
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="text-red-500 label-text-alt"><ErrorMessage name="comfirm_password" /></span>
       </label>
+    </div>
 
+    <div class="w-full max-w-sm">
       <label class="cursor-pointer label">
         <span class="label-text">Switch language</span>
         <input
@@ -199,10 +207,10 @@ function onInvalidSubmit({ values, errors, results }: any) {
           @change="switchLanguage"
         />
       </label>
+    </div>
 
-      <div class="flex justify-end">
-        <button type="submit" class="btn-primary btn" :disabled="isLoading">Submit</button>
-      </div>
+    <div class="flex flex-col w-full max-w-sm space-y-2">
+      <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
     </div>
   </Form>
 </template>

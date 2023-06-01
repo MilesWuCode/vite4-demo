@@ -1,28 +1,23 @@
 <script setup lang="ts">
-import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
+import { defineRule, Field, Form, ErrorMessage, configure } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
 import { ref } from 'vue'
-import { required, email, min, max } from '@vee-validate/rules'
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { required, confirmed } from '@vee-validate/rules'
+import { useMutation } from '@tanstack/vue-query'
+import { useRoute, useRouter } from 'vue-router'
 import axios from '@/utils/axios'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
-import EmailVerifyInput from '@/components/Profile/EmailVerifyInput.vue'
-
-const props = defineProps<{
-  data: { id: number | string; name: string }
-}>()
 
 type FormType = {
-  name: string
+  password: string
+  comfirm_password: string
 }
 
 defineRule('required', required)
-defineRule('email', email)
-defineRule('min', min)
-defineRule('max', max)
+defineRule('confirmed', confirmed)
 
 configure({
   generateMessage: localize({
@@ -30,7 +25,7 @@ configure({
     zhTW
   })
   // 驗證時機,限<Field />使用
-  // validateOnInput: true,
+  // validateOnInput: true
   // validateOnChange: true,
   // validateOnBlur: true,
   // validateOnModelUpdate: true,
@@ -38,20 +33,23 @@ configure({
 
 setLocale('zhTW')
 
-const lang = ref('zhTW')
+const formRef = ref()
+
+const route = useRoute()
+
+const router = useRouter()
 
 const initialValues = {
-  name: props.data.name
+  password: 'password',
+  comfirm_password: 'password'
 }
 
-const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
-  initialValues: initialValues
-})
-
-const queryClient = useQueryClient()
+const { email, code } = route.query
 
 const { mutate, isLoading } = useMutation({
-  mutationFn: (formValues: FormType) => axios.put('/api/me', formValues),
+  mutationFn: (formValues: FormType) => {
+    return axios.post('/api/auth/reset-password', { email, code, ...formValues })
+  },
   onMutate: (variables) => {
     console.log('onMutate', variables)
     // 送出前
@@ -65,22 +63,19 @@ const { mutate, isLoading } = useMutation({
 
     if (error.response?.status === 422) {
       // 單欄位
-      // setFieldError('email', 'error')
+      // formRef.value.setFieldError('email', 'error')
 
       // 多欄位
       let responseData = error.response?.data as any
 
-      setErrors(responseData.errors)
+      formRef.value.setErrors(responseData.errors)
     }
   },
   onSuccess: (data, variables, context) => {
     // 回傳
     console.log('onSuccess', data, variables, context)
 
-    // 重新抓取
-    queryClient.invalidateQueries(['profile'])
-
-    notyf.success('updated')
+    router.push('/login')
   },
   onSettled: (data, error, variables, context) => {
     // 結束
@@ -88,12 +83,14 @@ const { mutate, isLoading } = useMutation({
   }
 })
 
-const onSubmit = handleSubmit((values) => {
-  mutate(values)
-}, onInvalidSubmit)
+// 只能設any
+const onSubmit = (values: any) => {
+  if (!email || !code) {
+    notyf.error('缺少參數')
+    return
+  }
 
-function switchLanguage() {
-  setLocale(lang.value)
+  mutate(values)
 }
 
 // 只能設any
@@ -111,33 +108,52 @@ function onInvalidSubmit({ values, errors, results }: any) {
 </script>
 
 <template>
-  <form @submit="onSubmit" novalidate>
+  <Form
+    :initial-values="initialValues"
+    @submit="onSubmit"
+    @invalid-submit="onInvalidSubmit"
+    ref="formRef"
+  >
     <div class="w-full max-w-sm form-control">
       <label class="label">
-        <span class="label-text">Name</span>
+        <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="name"
-        label="名字"
-        type="text"
-        placeholder="Your Name"
+        name="password"
+        label="密碼"
+        type="password"
+        placeholder="Your Password"
         class="input-bordered input"
-        rules="required|max:20"
+        rules="required|min:8|max:32"
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt">
-          <ErrorMessage name="name" />
-        </span>
+        <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
       </label>
     </div>
 
-    <EmailVerifyInput />
+    <div class="w-full max-w-sm form-control">
+      <label class="label">
+        <span class="label-text">Comfirm Password</span>
+        <span class="label-text-alt"></span>
+      </label>
+      <Field
+        name="comfirm_password"
+        label="確認密碼"
+        type="password"
+        placeholder="Comfirm Password"
+        class="input-bordered input"
+        rules="confirmed:@password"
+      />
+      <label class="label">
+        <span class="label-text-alt"></span>
+        <span class="text-red-500 label-text-alt"><ErrorMessage name="comfirm_password" /></span>
+      </label>
+    </div>
 
-    <!-- submit -->
     <div class="flex flex-col w-full max-w-sm space-y-2">
       <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
     </div>
-  </form>
+  </Form>
 </template>

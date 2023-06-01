@@ -35,6 +35,6 @@ const { isLoading, isError, data, error } = useQuery<Profile, Error>({
   <template v-else-if="isError">{{ error?.message }}</template>
   <template v-else-if="data">
     <h1 class="text-3xl">Profile</h1>
-    <ProfileForm :data="data" class="max-w-sm mx-auto" />
+    <ProfileForm :data="data" class="flex flex-col items-center justify-center" />
   </template>
 </template>

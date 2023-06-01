@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import notyf from '@/utils/notyf'
 import { required, email } from '@vee-validate/rules'
 import { useMutation } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
+import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 

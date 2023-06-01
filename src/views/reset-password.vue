@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import RegisterForm from '@/components/Register/Form.vue'
+import ResetPasswordForm from '@/components/ResetPassword/Form.vue'
 </script>
 
 <template>
   <h1 class="text-3xl">Reset Password</h1>
-  <!-- <RegisterForm class="max-w-sm mx-auto" /> -->
+  <ResetPasswordForm class="flex flex-col items-center justify-center" />
 </template>
