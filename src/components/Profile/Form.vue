@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import { ref } from 'vue'
 import { required, email, min, max } from '@vee-validate/rules'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
+import EmailVerifyInput from '@/components/Profile/EmailVerifyInput.vue'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
-import EmailVerifyInput from '@/components/Profile/EmailVerifyInput.vue'
 
 const props = defineProps<{
   data: { id: number | string; name: string }
@@ -37,8 +36,6 @@ configure({
 })
 
 setLocale('zhTW')
-
-const lang = ref('zhTW')
 
 const initialValues = {
   name: props.data.name
@@ -91,10 +88,6 @@ const { mutate, isLoading } = useMutation({
 const onSubmit = handleSubmit((values) => {
   mutate(values)
 }, onInvalidSubmit)
-
-function switchLanguage() {
-  setLocale(lang.value)
-}
 
 // 只能設any
 function onInvalidSubmit({ values, errors, results }: any) {

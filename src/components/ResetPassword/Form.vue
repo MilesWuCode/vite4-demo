@@ -2,7 +2,7 @@
 import { defineRule, Field, Form, ErrorMessage, configure } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
 import { ref } from 'vue'
-import { required, confirmed } from '@vee-validate/rules'
+import { required, confirmed, max, min } from '@vee-validate/rules'
 import { useMutation } from '@tanstack/vue-query'
 import { useRoute, useRouter } from 'vue-router'
 import axios from '@/utils/axios'
@@ -17,6 +17,8 @@ type FormType = {
 }
 
 defineRule('required', required)
+defineRule('min', min)
+defineRule('max', max)
 defineRule('confirmed', confirmed)
 
 configure({
@@ -69,6 +71,10 @@ const { mutate, isLoading } = useMutation({
       let responseData = error.response?.data as any
 
       formRef.value.setErrors(responseData.errors)
+
+      notyf.error(responseData.message)
+    } else {
+      notyf.error('驗證失敗')
     }
   },
   onSuccess: (data, variables, context) => {
