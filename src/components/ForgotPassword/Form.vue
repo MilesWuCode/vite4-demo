@@ -104,7 +104,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
     </div>
 
     <!-- submit -->
-    <div class="w-full max-w-sm">
+    <div class="flex flex-col w-full max-w-sm space-y-2">
       <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
     </div>
   </form>

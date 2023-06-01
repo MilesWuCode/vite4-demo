@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import Cookies from 'js-cookie'
 import notyf from '@/utils/notyf'
 
@@ -30,17 +30,15 @@ instance.interceptors.response.use(
     // Do something with response data
     return response
   },
-  function (error) {
-    // if (error.response.status === 429) {
-    //   notyf.error('請求次數太多')
-    // }
+  function (error: AxiosError) {
+    if (error.response?.status === 401) {
+      // wip
+    }
 
-    if (![401, 422].includes(error.response.status)) {
-      if (error.response.data.message) {
-        notyf.error(error.response.data.message)
-      } else {
-        notyf.error('unknow error')
-      }
+    if (error.response?.status === 429) {
+      const data = error.response.data as any
+
+      data.message && notyf.error(data.message)
     }
 
     // Any status codes that falls outside the range of 2xx cause this function to trigger

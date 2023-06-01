@@ -121,7 +121,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
 
 <template>
   <form @submit="onSubmit" novalidate>
-    <div class="w-full max-w-xs form-control">
+    <div class="w-full max-w-sm form-control">
       <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
@@ -131,7 +131,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="E-mail"
         type="email"
         placeholder="Your Email"
-        class="w-full max-w-xs input-bordered input"
+        class="input-bordered input"
         rules="required|email"
       />
       <label class="label">
@@ -140,7 +140,9 @@ function onInvalidSubmit({ values, errors, results }: any) {
           <ErrorMessage name="email" />
         </span>
       </label>
+    </div>
 
+    <div class="w-full max-w-sm form-control">
       <label class="label">
         <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
@@ -150,14 +152,16 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="密碼"
         type="password"
         placeholder="Your Password"
-        class="w-full max-w-xs input-bordered input"
+        class="input-bordered input"
         rules="required|min:8|max:32"
       />
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
       </label>
+    </div>
 
+    <div class="w-full max-w-sm">
       <label class="cursor-pointer label">
         <span class="label-text">Switch language</span>
         <input
@@ -172,7 +176,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
     </div>
 
     <!-- submit -->
-    <div class="flex flex-col max-w-xs space-y-2">
+    <div class="flex flex-col w-full max-w-sm space-y-2">
       <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
 
       <RouterLink to="/forgot-password" class="text-right link link-primary"
