@@ -172,8 +172,12 @@ function onInvalidSubmit({ values, errors, results }: any) {
     </div>
 
     <!-- submit -->
-    <div class="flex justify-end w-full max-w-xs">
-      <button type="submit" class="btn-primary btn" :disabled="isLoading">Submit</button>
+    <div class="flex flex-col max-w-xs space-y-2">
+      <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
+
+      <RouterLink to="/forgot-password" class="text-right link link-primary"
+        >Forgot Password</RouterLink
+      >
     </div>
   </form>
 </template>

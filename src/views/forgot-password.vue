@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import RegisterForm from '@/components/Register/Form.vue'
+// import ForgotPasswordForm from '@/components/ForgotPassword/Form.vue'
 </script>
 
 <template>
   <h1 class="text-3xl">Forgot Password</h1>
-  <!-- <RegisterForm class="max-w-sm mx-auto" /> -->
+  <!-- <ForgotPasswordForm class="max-w-sm mx-auto" /> -->
 </template>
