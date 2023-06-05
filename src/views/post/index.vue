@@ -4,8 +4,6 @@ import { register } from 'swiper/element/bundle'
 
 register()
 
-const spaceBetween = 10
-
 const onProgress = (e: any) => {
   const [progress] = e.detail
 
@@ -15,17 +13,13 @@ const onProgress = (e: any) => {
 const onSlideChange = (e: any) => {
   console.log('slide changed', e)
 }
-
-const a = () => {
-  alert(1)
-}
 </script>
 
 <template>
   <h1 class="text-3xl">Post</h1>
   <swiper-container
     :slides-per-view="1"
-    :space-between="spaceBetween"
+    :space-between="10"
     :centered-slides="true"
     :pagination="{
       hideOnClick: true
@@ -39,13 +33,13 @@ const a = () => {
     @progress="onProgress"
     @slidechange="onSlideChange"
   >
-    <swiper-slide>Slide 1 <button @click="a" class="btn">click</button></swiper-slide>
-    <swiper-slide>Slide 2 <button @click="a" class="btn">click</button></swiper-slide>
-    <swiper-slide>Slide 3 <button @click="a" class="btn">click</button></swiper-slide>
-    <swiper-slide>Slide 4 <button @click="a" class="btn">click</button></swiper-slide>
-    <swiper-slide>Slide 5 <button @click="a" class="btn">click</button></swiper-slide>
-    <swiper-slide>Slide 6 <button @click="a" class="btn">click</button></swiper-slide>
-    <swiper-slide>Slide 7 <button @click="a" class="btn">click</button></swiper-slide>
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide>
+    <swiper-slide>Slide 5</swiper-slide>
+    <swiper-slide>Slide 6</swiper-slide>
+    <swiper-slide>Slide 7</swiper-slide>
   </swiper-container>
 </template>
 

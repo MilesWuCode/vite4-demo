@@ -89,7 +89,7 @@ const { mutate, isLoading } = useMutation({
 
     router.push((redirect as string) || '/')
 
-    notyf.success('you are login')
+    notyf.success('用戶登入')
   },
   onSettled: (data, error, variables, context) => {
     // 結束

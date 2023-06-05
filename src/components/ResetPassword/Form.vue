@@ -81,6 +81,8 @@ const { mutate, isLoading } = useMutation({
     // 回傳
     console.log('onSuccess', data, variables, context)
 
+    notyf.success('密碼更新')
+
     router.push('/login')
   },
   onSettled: (data, error, variables, context) => {

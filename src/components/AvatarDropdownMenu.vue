@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
+import notyf from '@/utils/notyf'
 
 const authStore = useAuthStore()
 
@@ -18,7 +19,9 @@ const { isLogin, user } = storeToRefs(authStore)
 // 登出
 async function logout() {
   // store登出
-  await authStore.logout()
+  await authStore.logout().then(() => {
+    notyf.success('用戶登出')
+  })
 
   // 登出後判別是否在會員專用
   route.meta.auth == 'member' && router.go(0)
