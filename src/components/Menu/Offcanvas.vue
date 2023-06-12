@@ -43,7 +43,7 @@ const closeBtn = ref()
         <h3 class="flex-1 text-xl">Logo</h3>
       </div>
       <div class="overflow-y-auto">
-        <List />
+        <List @toggle="toggle" />
       </div>
     </DialogPanel>
   </Dialog>

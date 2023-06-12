@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
+const emit = defineEmits<{
+  (e: 'toggle', show: boolean): void
+}>()
+
 const menu = reactive([
   { name: 'Index', href: '/' },
   { name: 'Login', href: '/login' },
@@ -19,7 +23,7 @@ const menu = reactive([
 <template>
   <ul class="menu">
     <li v-for="(item, index) in menu" :key="index">
-      <RouterLink :to="item.href">{{ item.name }}</RouterLink>
+      <RouterLink :to="item.href" @click="emit('toggle', false)">{{ item.name }}</RouterLink>
     </li>
   </ul>
 </template>
