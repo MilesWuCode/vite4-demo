@@ -21,26 +21,38 @@ export const useAuthStore = defineStore('auth', () => {
     const state = !!Cookies.get('token')
 
     if (state === isLogin.value) {
-      // 沒變動
+      // 沒變動,離開
       return
     } else {
-      // 有變動
+      // 有變動,檢查用戶資料
       isLogin.value = state
     }
 
-    if (state) {
-      // true值更新資料
-      await axios.get('/api/me').then(({ data }) => {
-        user.value = {
-          id: get(data, 'data.id', ''),
-          name: get(data, 'data.name', ''),
-          email: get(data, 'data.email', ''),
-          avatar: get(data, 'data.avatar', ''),
-          email_verified_at: get(data, 'data.email_verified_at')
-        }
-      })
-    } else {
-      // false值清空
+    if (state && user.value === null) {
+      // 有token但沒用戶資料時取得資料
+      await axios
+        .get('/api/me')
+        .then(({ data }) => {
+          user.value = {
+            id: get(data, 'data.id', ''),
+            name: get(data, 'data.name', ''),
+            email: get(data, 'data.email', ''),
+            avatar: get(data, 'data.avatar', ''),
+            email_verified_at: get(data, 'data.email_verified_at')
+          }
+        })
+        .catch(() => {
+          // 發生錯誤時登出
+          Cookies.remove('token')
+
+          isLogin.value = false
+
+          user.value = null
+        })
+    }
+
+    if (!state) {
+      // 沒有token清空用戶資料
       user.value = null
     }
   }

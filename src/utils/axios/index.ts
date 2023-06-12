@@ -31,12 +31,20 @@ instance.interceptors.response.use(
     return response
   },
   function (error: AxiosError) {
-    if (error.response?.status === 401) {
+    const status = error.response?.status
+
+    if (status === undefined) {
+      notyf.error(error.message)
+
+      return Promise.reject(error)
+    }
+
+    if (status === 401) {
       // wip
     }
 
-    if (error.response?.status === 429) {
-      const data = error.response.data as any
+    if (status === 429 || status === 500) {
+      const data = error.response?.data as any
 
       data.message && notyf.error(data.message)
     }
