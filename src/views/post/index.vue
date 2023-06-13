@@ -47,8 +47,21 @@ const onSlideChange = (e: any) => {
 </script>
 
 <template>
+  <!-- title -->
   <h1 class="text-3xl">Post</h1>
 
+  <!-- breadcrumbs -->
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li>Long text 1</li>
+      <li>Long text 2</li>
+      <li>Long text 3</li>
+      <li>Long text 4</li>
+      <li>Long text 5</li>
+    </ul>
+  </div>
+
+  <!-- swiper -->
   <swiper-container
     v-if="data"
     slides-per-view="auto"
