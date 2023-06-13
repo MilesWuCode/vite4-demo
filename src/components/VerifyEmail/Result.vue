@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/vue-query'
 import { useRoute } from 'vue-router'
 import axios from '@/utils/axios'
 import type { AxiosError } from 'axios'
+import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
 
@@ -12,6 +13,8 @@ const formValues = {
   email,
   code
 }
+
+const authStore = useAuthStore()
 
 const { mutate, isLoading, isError, error } = useMutation({
   mutationFn: () => axios.post('/api/auth/verify-email', formValues),
@@ -25,6 +28,9 @@ const { mutate, isLoading, isError, error } = useMutation({
   onSuccess: (data, variables, context) => {
     // 回傳
     console.log('onSuccess', data, variables, context)
+
+    // 更新資料
+    authStore.fetchUser()
   },
   onSettled: (data, error, variables, context) => {
     // 結束

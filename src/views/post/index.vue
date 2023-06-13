@@ -67,13 +67,13 @@ const onSlideChange = (e: any) => {
   </div>
 
   <!-- error -->
-  <div v-if="isError" class="flex items-center justify-center">
+  <div v-else-if="isError" class="flex items-center justify-center">
     {{ error?.message }}
   </div>
 
   <!-- swiper -->
   <swiper-container
-    v-if="!isLoading && data"
+    v-else-if="data"
     slides-per-view="auto"
     :space-between="14"
     :centered-slides="true"
@@ -85,7 +85,7 @@ const onSlideChange = (e: any) => {
     @slidechange="onSlideChange"
     class="h-96"
   >
-    <swiper-slide v-for="post in data?.data" :key="post.id" class="max-w-sm">
+    <swiper-slide v-for="post in data.data" :key="post.id" class="max-w-sm">
       <RouterLink :to="`/post/${post.id}`">
         <div class="shadow-xl card card-compact bg-base-100">
           <figure>

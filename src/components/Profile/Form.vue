@@ -9,6 +9,7 @@ import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
+import { useAuthStore } from '@/stores/auth'
 
 const props = defineProps<{
   data: { id: number | string; name: string }
@@ -45,7 +46,7 @@ const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
   initialValues: initialValues
 })
 
-const queryClient = useQueryClient()
+const authStore = useAuthStore()
 
 const { mutate, isLoading } = useMutation({
   mutationFn: (formValues: FormType) => axios.put('/api/me', formValues),
@@ -74,8 +75,8 @@ const { mutate, isLoading } = useMutation({
     // 回傳
     console.log('onSuccess', data, variables, context)
 
-    // 重新抓取
-    queryClient.invalidateQueries(['profile'])
+    // 更新資料
+    authStore.fetchUser()
 
     notyf.success('updated')
   },
