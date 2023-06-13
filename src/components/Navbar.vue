@@ -15,7 +15,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="sticky top-0 z-50 h-16 bg-white border-b navbar border-gray">
+  <div class="sticky top-0 z-50 h-16 border-b navbar border-gray">
     <!-- left:menu -->
     <div class="flex-none space-x-2">
       <button

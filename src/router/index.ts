@@ -12,9 +12,9 @@ import NProgress from 'nprogress'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // 模糊
-  linkActiveClass: 'active',
+  linkActiveClass: 'bg-base-300 text-base',
   // 準確
-  linkExactActiveClass: 'active',
+  linkExactActiveClass: '!active',
   routes: [
     // {
     //   path: '/',

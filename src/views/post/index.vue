@@ -61,9 +61,19 @@ const onSlideChange = (e: any) => {
     </ul>
   </div>
 
+  <!-- loading -->
+  <div v-if="isLoading" class="flex items-center justify-center">
+    <span class="loading loading-spinner loading-md"></span>
+  </div>
+
+  <!-- error -->
+  <div v-if="isError" class="flex items-center justify-center">
+    {{ error?.message }}
+  </div>
+
   <!-- swiper -->
   <swiper-container
-    v-if="data"
+    v-if="!isLoading && data"
     slides-per-view="auto"
     :space-between="14"
     :centered-slides="true"
