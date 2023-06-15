@@ -27,7 +27,7 @@ const onSlideChange = (e: any) => {
     :space-between="14"
     :centered-slides="true"
     :pagination="{
-      hideOnClick: true
+      hideOnClick: false
     }"
     :loop="true"
     @progress="onProgress"
@@ -35,9 +35,7 @@ const onSlideChange = (e: any) => {
     class="h-96"
   >
     <swiper-slide v-for="post in posts.data" :key="post.id" class="max-w-sm">
-      <RouterLink :to="`/post/${post.id}`">
-        <PostCard :post="post" />
-      </RouterLink>
+      <PostCard :post="post" />
     </swiper-slide>
   </swiper-container>
 </template>
