@@ -1,21 +1,16 @@
 <script setup lang="ts">
-// @ts-ignore
-import { register } from 'swiper/element/bundle'
-
 import { useQuery } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
-import { get } from 'lodash-es'
+import PostListSwiper from '@/components/Post/ListSwiper.vue'
 
-register()
-
-type Post = {
+export type Post = {
   id: string
   title: string
   content: string
   cover: string
 }
 
-type Posts = {
+export type Posts = {
   data: Post[]
   meta: {
     currentPage: number
@@ -34,16 +29,6 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
   queryKey: ['posts'],
   queryFn: fetchPosts
 })
-
-const onProgress = (e: any) => {
-  const [progress] = e.detail
-
-  console.log(progress)
-}
-
-const onSlideChange = (e: any) => {
-  console.log('slide changed', e)
-}
 </script>
 
 <template>
@@ -72,31 +57,5 @@ const onSlideChange = (e: any) => {
   </div>
 
   <!-- swiper -->
-  <swiper-container
-    v-else-if="data"
-    slides-per-view="auto"
-    :space-between="14"
-    :centered-slides="true"
-    :pagination="{
-      hideOnClick: true
-    }"
-    :loop="true"
-    @progress="onProgress"
-    @slidechange="onSlideChange"
-    class="h-96"
-  >
-    <swiper-slide v-for="post in data.data" :key="post.id" class="max-w-sm">
-      <RouterLink :to="`/post/${post.id}`">
-        <div class="shadow-xl card card-compact bg-base-100">
-          <figure>
-            <img :src="post.cover" :alt="post.title" class="object-cover w-full h-48" />
-          </figure>
-          <div class="card-body">
-            <h2 class="truncate card-title">{{ `${post.id} - ${post.title}` }}</h2>
-            <p class="h-20 line-clamp-4">{{ post.content }}</p>
-          </div>
-        </div>
-      </RouterLink>
-    </swiper-slide>
-  </swiper-container>
+  <PostListSwiper v-else-if="data" :posts="data" />
 </template>
