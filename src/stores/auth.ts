@@ -30,11 +30,6 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     /**
-     * 有變動更新狀態
-     */
-    isLogin.value = state
-
-    /**
      * 登入中
      * 更新用戶資料
      *
@@ -44,7 +39,11 @@ export const useAuthStore = defineStore('auth', () => {
     if (state) {
       await fetchUser()
     } else {
+      Cookies.remove('token')
+
       user.value = null
+
+      isLogin.value = false
     }
   }
 
@@ -52,8 +51,13 @@ export const useAuthStore = defineStore('auth', () => {
    * 執行登出
    */
   async function logout() {
+    // @ts-ignore
+    window.Echo.leave(`App.Models.User.${user.value.id}`)
+
     await axios.post('/api/auth/logout').finally(() => {
       Cookies.remove('token')
+
+      user.value = null
 
       isLogin.value = false
     })
@@ -69,6 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
       await axios
         .get('/api/me')
         .then(({ data }) => {
+          // 成功取得資料才算登入
           user.value = {
             id: get(data, 'data.id', ''),
             name: get(data, 'data.name', ''),
@@ -76,14 +81,16 @@ export const useAuthStore = defineStore('auth', () => {
             avatar: get(data, 'data.avatar', ''),
             email_verified_at: get(data, 'data.email_verified_at')
           }
+
+          isLogin.value = true
         })
         .catch(() => {
           // 發生錯誤時登出
           Cookies.remove('token')
 
-          isLogin.value = false
-
           user.value = null
+
+          isLogin.value = false
         })
     }
   }

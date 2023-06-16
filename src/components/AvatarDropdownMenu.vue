@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { watchEffect } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
@@ -26,6 +27,24 @@ async function logout() {
   // 登出後判別是否在會員專用
   route.meta.auth == 'member' && router.go(0)
 }
+
+watchEffect(async () => {
+  /**
+   * 如果是登入就訂閱通知，並記錄key到pinia
+   * 1.登出把pinia存的key用Echo.leave('...')清掉
+   * 2.離開某個觀注在組件關閉前Echo.leave('...')清掉
+   */
+  if (isLogin.value) {
+    // @ts-ignore
+    window.Echo.private(`App.Models.User.${user.value?.id}`)
+      .listen('.PostUpdated', (e: any) => {
+        console.log(e.model)
+      })
+      .listen('.UserUpdated', (e: any) => {
+        console.log(e.model)
+      })
+  }
+})
 </script>
 
 <template>
