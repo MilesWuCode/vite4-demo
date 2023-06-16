@@ -35,8 +35,10 @@ window.Echo = new Echo({
   //   }
   // }
   // 重寫可用
+  // @ts-ignore
   authorizer: (channel, options) => {
     return {
+      // @ts-ignore
       authorize: (socketId, callback) => {
         axios
           .post(

@@ -33,6 +33,7 @@ watchEffect(async () => {
    * 如果是登入就訂閱通知，並記錄key到pinia
    * 1.登出把pinia存的key用Echo.leave('...')清掉
    * 2.離開某個觀注在組件關閉前Echo.leave('...')清掉
+   * wip:為何跑2次
    */
   if (isLogin.value) {
     // @ts-ignore

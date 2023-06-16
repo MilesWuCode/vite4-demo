@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
    */
   async function logout() {
     // @ts-ignore
-    window.Echo.leave(`App.Models.User.${user.value.id}`)
+    window.Echo.leaveAllChannels()
 
     await axios.post('/api/auth/logout').finally(() => {
       Cookies.remove('token')
