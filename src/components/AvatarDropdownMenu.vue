@@ -49,6 +49,9 @@ function echoListen(run: boolean) {
       .listen('.UserUpdated', (e: any) => {
         console.log(e.model)
       })
+      .notification((notification: any) => {
+        console.log(notification.type)
+      })
   } else {
     window.Echo.leave(`App.Models.User.${user.value?.id}`)
   }
