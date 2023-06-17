@@ -36,7 +36,6 @@ watchEffect(async () => {
    * wip:為何跑2次
    */
   if (isLogin.value) {
-    // @ts-ignore
     window.Echo.private(`App.Models.User.${user.value?.id}`)
       .listen('.PostUpdated', (e: any) => {
         console.log(e.model)
