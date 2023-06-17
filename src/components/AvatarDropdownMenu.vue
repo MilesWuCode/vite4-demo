@@ -77,7 +77,7 @@ function echoListen(run: boolean) {
       </li>
       <li><a>Settings</a></li>
       <li>
-        <button type="button" @click="logout">Logout</button>
+        <a href="javascript:;" @click="logout">Logout</a>
       </li>
     </ul>
   </div>
