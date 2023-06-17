@@ -51,7 +51,6 @@ export const useAuthStore = defineStore('auth', () => {
    * 執行登出
    */
   async function logout() {
-    // @ts-ignore
     window.Echo.leaveAllChannels()
 
     await axios.post('/api/auth/logout').finally(() => {

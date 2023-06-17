@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue'
+import { onMounted, watch, onBeforeUnmount } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
@@ -28,14 +28,20 @@ async function logout() {
   route.meta.auth == 'member' && router.go(0)
 }
 
-watchEffect(async () => {
-  /**
-   * 如果是登入就訂閱通知，並記錄key到pinia
-   * 1.登出把pinia存的key用Echo.leave('...')清掉
-   * 2.離開某個觀注在組件關閉前Echo.leave('...')清掉
-   * wip:為何跑2次
-   */
-  if (isLogin.value) {
+onMounted(() => {
+  echoListen(isLogin.value)
+})
+
+watch(isLogin, (newValue) => {
+  echoListen(newValue)
+})
+
+onBeforeUnmount(() => {
+  echoListen(false)
+})
+
+function echoListen(run: boolean) {
+  if (run) {
     window.Echo.private(`App.Models.User.${user.value?.id}`)
       .listen('.PostUpdated', (e: any) => {
         console.log(e.model)
@@ -43,8 +49,10 @@ watchEffect(async () => {
       .listen('.UserUpdated', (e: any) => {
         console.log(e.model)
       })
+  } else {
+    window.Echo.leave(`App.Models.User.${user.value?.id}`)
   }
-})
+}
 </script>
 
 <template>
