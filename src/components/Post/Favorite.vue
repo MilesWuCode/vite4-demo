@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type Post } from '@/views/post/index.vue'
+import { type Post, type Posts } from '@/views/post/index.vue'
 import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
 import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import { ref } from 'vue'
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import type { AxiosError } from 'axios'
 import notyf from '@/utils/notyf'
@@ -11,6 +11,8 @@ import notyf from '@/utils/notyf'
 const props = defineProps<{
   post: Post
 }>()
+
+const queryClient = useQueryClient()
 
 const isFavorite = ref(props.post.reaction.favorite_state)
 
@@ -29,8 +31,33 @@ const { mutate, isLoading } = useMutation({
     console.log('onSuccess', data, variables, context)
 
     notyf.success((isFavorite.value ? '加入' : '移除') + '最愛')
+
+    updateQueryCache()
   }
 })
+
+/**
+ * 更新cache
+ * 若query keys太多就不要做
+ * 不然會做不完
+ */
+const updateQueryCache = () => {
+  const posts = queryClient.getQueryData(['posts']) as Posts
+
+  let isChange = false
+
+  for (const item of posts.data) {
+    if (item.id === props.post.id) {
+      item.reaction.favorite_state = isFavorite.value
+      isChange = true
+      break
+    }
+  }
+
+  if (isChange) {
+    queryClient.setQueryData(['posts'], posts)
+  }
+}
 </script>
 
 <template>
