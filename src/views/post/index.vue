@@ -8,6 +8,17 @@ export type Post = {
   title: string
   content: string
   cover: string
+  reaction: {
+    like_count: number
+    dislike_count: number
+    like_state: 'like' | 'dislike'
+    favorite_state: boolean
+  }
+  user: {
+    id: string
+    name: string
+    avatar: string
+  }
 }
 
 export type Posts = {

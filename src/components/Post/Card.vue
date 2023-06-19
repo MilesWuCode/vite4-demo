@@ -15,7 +15,7 @@ defineProps<{
           <img :src="post.cover" :alt="post.title" class="object-cover w-full h-48" />
         </figure>
       </RouterLink>
-      <Favorite class="absolute bottom-1 right-1" />
+      <Favorite class="absolute bottom-1 right-1" :post="post" />
     </div>
     <div class="card-body">
       <h2 class="truncate card-title">{{ `${post.id} - ${post.title}` }}</h2>
