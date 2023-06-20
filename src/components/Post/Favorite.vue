@@ -40,6 +40,11 @@ const { mutate, isLoading } = useMutation({
  * 更新cache
  * 若query keys太多就不要做
  * 不然會做不完
+ *
+ * 應該有更好的方法
+ * - 同步組件
+ * - 同步分頁
+ * - 快取用戶狀態
  */
 const updateQueryCache = () => {
   const posts = queryClient.getQueryData(['posts']) as Posts
