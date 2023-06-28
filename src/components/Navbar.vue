@@ -2,6 +2,7 @@
 import MenuIcon from '@/components/icons/MenuIcon.vue'
 import MenuKebabIcon from '@/components/icons/MenuKebabIcon.vue'
 import AvatarDropdownMenuVue from '@/components/AvatarDropdownMenu.vue'
+import { ref } from 'vue'
 
 defineProps<{
   showOffcanvas: boolean
@@ -12,6 +13,8 @@ const emit = defineEmits<{
   (e: 'update:show-offcanvas', val: boolean): void
   (e: 'update:show-sidebar', val: boolean): void
 }>()
+
+const logo = ref(import.meta.env.VITE_APP_NAME)
 </script>
 
 <template>
@@ -33,7 +36,7 @@ const emit = defineEmits<{
         <MenuIcon />
       </button>
 
-      <h3 class="text-xl">Logo</h3>
+      <h3 class="text-xl">{{ logo }}</h3>
     </div>
 
     <!-- logo -->
