@@ -2,7 +2,7 @@
 import { useHead } from '@unhead/vue'
 
 useHead({
-  title: 'My awesome site'
+  title: 'Index - ' + import.meta.env.VITE_APP_NAME
 })
 </script>
 
