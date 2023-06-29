@@ -49,6 +49,12 @@ function echoListen(run: boolean) {
       .listen('.UserUpdated', (e: any) => {
         console.log(e.model)
       })
+      .listen('.App\\Events\\LikeReactionEvent', (e: any) => {
+        console.log(e.user)
+      })
+      .listen('.App\\Events\\FavoriteReactionEvent', (e: any) => {
+        console.log(e.user)
+      })
       .notification((notification: any) => {
         console.log(notification.type)
       })
