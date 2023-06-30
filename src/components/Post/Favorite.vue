@@ -18,7 +18,7 @@ const queryClient = useQueryClient()
 localforage.getItem(`post.${props.post.id}`).then((val) => {
   const reaction = val as ReactionCatch
 
-  isFavorite.value = reaction.favorite_state
+  reaction && (isFavorite.value = reaction.favorite_state)
 })
 
 const isFavorite = ref(props.post.reaction.favorite_state)

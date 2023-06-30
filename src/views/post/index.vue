@@ -48,7 +48,7 @@ const fetchPosts = () => {
         localforage.getItem(`post.${item.id}`).then((val) => {
           const reaction = val as ReactionCatch
 
-          if (reaction.time < catchTime) {
+          if (!reaction || reaction?.time < catchTime) {
             localforage.setItem(`post.${item.id}`, { ...item.reaction, time: new Date() })
           }
         })

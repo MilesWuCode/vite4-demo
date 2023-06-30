@@ -3,6 +3,7 @@ import { get } from 'lodash-es'
 import { ref } from 'vue'
 import axios from '@/utils/axios'
 import Cookies from 'js-cookie'
+import localforage from 'localforage'
 
 type User = {
   id: number | string
@@ -52,6 +53,8 @@ export const useAuthStore = defineStore('auth', () => {
    */
   async function logout() {
     window.Echo.leaveAllChannels()
+
+    localforage.clear()
 
     await axios.post('/api/auth/logout').finally(() => {
       Cookies.remove('token')
