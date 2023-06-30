@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Post, type Posts } from '@/views/post/index.vue'
+import { type Post, type Posts, type ReactionCatch } from '@/views/post/index.vue'
 import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
 import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import { ref } from 'vue'
@@ -7,12 +7,19 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import type { AxiosError } from 'axios'
 import notyf from '@/utils/notyf'
+import localforage from 'localforage'
 
 const props = defineProps<{
   post: Post
 }>()
 
 const queryClient = useQueryClient()
+
+localforage.getItem(`post.${props.post.id}`).then((val) => {
+  const reaction = val as ReactionCatch
+
+  isFavorite.value = reaction.favorite_state
+})
 
 const isFavorite = ref(props.post.reaction.favorite_state)
 

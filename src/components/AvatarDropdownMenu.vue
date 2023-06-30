@@ -63,8 +63,8 @@ function echoListen(run: boolean) {
             const reaction = val as Reaction
 
             reaction.favorite_state = favorite_state
-
-            localforage.setItem(`${model}.${id}`, reaction)
+            console.log('upd', reaction)
+            localforage.setItem(`${model}.${id}`, { ...reaction, time: new Date() })
           })
           .catch(function (err) {
             console.log(err)

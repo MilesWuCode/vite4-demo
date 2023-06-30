@@ -18,6 +18,7 @@ export type Post = {
 }
 
 export type Posts = {
+  cached_at: Date
   data: Post[]
   meta: {
     currentPage: number
@@ -33,12 +34,24 @@ export type Reaction = {
   favorite_state: boolean
 }
 
+export type ReactionCatch = Reaction & {
+  time: Date
+}
+
 const fetchPosts = () => {
   return axios
     .get('/api/post', { params: { page: 1, limit: 20 } })
     .then(({ data }: { data: Posts }) => {
+      const catchTime = data.cached_at
+
       Object.values(data.data).forEach((item) => {
-        localforage.setItem('post.' + item.id, item.reaction)
+        localforage.getItem(`post.${item.id}`).then((val) => {
+          const reaction = val as ReactionCatch
+
+          if (reaction.time < catchTime) {
+            localforage.setItem(`post.${item.id}`, { ...item.reaction, time: new Date() })
+          }
+        })
       })
 
       return data
