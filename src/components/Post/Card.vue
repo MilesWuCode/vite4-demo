@@ -12,7 +12,12 @@ defineProps<{
     <div class="relative">
       <RouterLink :to="`/post/${post.id}`">
         <figure>
-          <img :src="post.cover" :alt="post.title" class="object-cover w-full h-48" />
+          <img
+            :src="post.cover"
+            :alt="post.title"
+            class="object-cover w-full h-48"
+            loading="lazy"
+          />
         </figure>
       </RouterLink>
       <Favorite class="absolute bottom-1 right-1" :post="post" />
