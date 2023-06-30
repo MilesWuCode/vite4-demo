@@ -27,14 +27,15 @@ export type Posts = {
   }
 }
 
-export type Reaction = {
+type Reaction = {
   like_count: number
   dislike_count: number
   like_state: 'like' | 'dislike' | ''
   favorite_state: boolean
 }
 
-export type ReactionCatch = Reaction & {
+export type FavoriteCatch = {
+  state: boolean
   time: Date
 }
 
@@ -42,14 +43,22 @@ const fetchPosts = () => {
   return axios
     .get('/api/post', { params: { page: 1, limit: 20 } })
     .then(({ data }: { data: Posts }) => {
+      // api建立時間或快取時間
       const catchTime = data.cached_at
 
+      // favorite
       Object.values(data.data).forEach((item) => {
-        localforage.getItem(`post.${item.id}`).then((val) => {
-          const reaction = val as ReactionCatch
+        // 取出indexedDB
+        localforage.getItem(`post.${item.id}.favorite`).then((val) => {
+          const favorite = val as FavoriteCatch
 
-          if (!reaction || reaction?.time < catchTime) {
-            localforage.setItem(`post.${item.id}`, { ...item.reaction, time: new Date() })
+          // 沒有資料或時間小於快取時間
+          if (favorite === null || favorite?.time < catchTime) {
+            // 存入indexedDB
+            localforage.setItem(`post.${item.id}.favorite`, {
+              state: item.reaction.favorite_state,
+              time: new Date()
+            })
           }
         })
       })

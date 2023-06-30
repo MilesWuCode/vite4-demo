@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
 import notyf from '@/utils/notyf'
 import localforage from 'localforage'
-import type { ReactionCatch } from '@/views/post/index.vue'
+import type { FavoriteCatch } from '@/views/post/index.vue'
 
 const authStore = useAuthStore()
 
@@ -55,20 +55,9 @@ function echoListen(run: boolean) {
         console.log(e.user)
       })
       .listen('.App\\Events\\FavoriteReactionEvent', (e: any) => {
-        const { id, model, favorite_state } = e
+        const { id, model, favorite_state: state } = e
 
-        localforage
-          .getItem(`${model}.${id}`)
-          .then((val) => {
-            const reaction = val as ReactionCatch
-
-            reaction.favorite_state = favorite_state
-
-            localforage.setItem(`${model}.${id}`, { ...reaction, time: new Date() })
-          })
-          .catch(function (err) {
-            console.log(err)
-          })
+        localforage.setItem(`${model}.${id}.favorite`, { state, time: new Date() })
       })
       .notification((notification: any) => {
         console.log(notification.type)

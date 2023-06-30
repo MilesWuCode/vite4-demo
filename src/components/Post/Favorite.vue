@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Post, type Posts, type ReactionCatch } from '@/views/post/index.vue'
+import type { Post, Posts, FavoriteCatch } from '@/views/post/index.vue'
 import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
 import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import { ref } from 'vue'
@@ -15,13 +15,13 @@ const props = defineProps<{
 
 const queryClient = useQueryClient()
 
-localforage.getItem(`post.${props.post.id}`).then((val) => {
-  const reaction = val as ReactionCatch
-
-  reaction && (isFavorite.value = reaction.favorite_state)
-})
-
 const isFavorite = ref(props.post.reaction.favorite_state)
+
+localforage.getItem(`post.${props.post.id}.favorite`).then((val) => {
+  const favorite = val as FavoriteCatch
+
+  favorite && (isFavorite.value = favorite.state)
+})
 
 const { mutate, isLoading } = useMutation({
   mutationFn: () => {
@@ -39,7 +39,8 @@ const { mutate, isLoading } = useMutation({
 
     notyf.success((isFavorite.value ? '加入' : '移除') + '最愛')
 
-    updateQueryCache()
+    // 使用websocket不用再做更新
+    // updateQueryCache()
   }
 })
 
