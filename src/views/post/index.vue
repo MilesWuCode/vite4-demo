@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
-import PostListSwiper from '@/components/Post/ListSwiper.vue'
 import localforage from 'localforage'
+import PostListSwiper from '@/components/Post/ListSwiper.vue'
 
 export type Post = {
   id: string

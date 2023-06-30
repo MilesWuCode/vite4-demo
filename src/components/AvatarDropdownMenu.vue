@@ -3,9 +3,8 @@ import { onMounted, watch, onBeforeUnmount } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
-import notyf from '@/utils/notyf'
 import localforage from 'localforage'
-import type { FavoriteCatch } from '@/views/post/index.vue'
+import notyf from '@/utils/notyf'
 
 const authStore = useAuthStore()
 
@@ -16,6 +15,7 @@ const router = useRouter()
 // 不使用computed
 // const isLogin = computed(() => authStore.isLogin)
 // const user = computed(() => authStore.user)
+
 // 改用storeToRefs
 const { isLogin, user } = storeToRefs(authStore)
 

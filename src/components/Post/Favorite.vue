@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Post, Posts, FavoriteCatch } from '@/views/post/index.vue'
-import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
-import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import { ref } from 'vue'
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
-import type { AxiosError } from 'axios'
-import notyf from '@/utils/notyf'
 import localforage from 'localforage'
+import notyf from '@/utils/notyf'
+import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
+import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
+import type { AxiosError } from 'axios'
+import type { Post, Posts, FavoriteCatch } from '@/views/post/index.vue'
 
 const props = defineProps<{
   post: Post
@@ -15,14 +15,17 @@ const props = defineProps<{
 
 const queryClient = useQueryClient()
 
+// 原資料
 const isFavorite = ref(props.post.reaction.favorite_state)
 
+// indexedDB資料
 localforage.getItem(`post.${props.post.id}.favorite`).then((val) => {
   const favorite = val as FavoriteCatch
 
   favorite && (isFavorite.value = favorite.state)
 })
 
+// 更新
 const { mutate, isLoading } = useMutation({
   mutationFn: () => {
     return axios.post(`/api/post/${props.post.id}/reactToFavorite`, {
@@ -62,7 +65,9 @@ const updateQueryCache = () => {
   for (const item of posts.data) {
     if (item.id === props.post.id) {
       item.reaction.favorite_state = isFavorite.value
+
       isChange = true
+
       break
     }
   }
