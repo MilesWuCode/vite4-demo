@@ -4,6 +4,8 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
 import notyf from '@/utils/notyf'
+import localforage from 'localforage'
+import type { Reaction } from '@/views/post/index.vue'
 
 const authStore = useAuthStore()
 
@@ -53,7 +55,20 @@ function echoListen(run: boolean) {
         console.log(e.user)
       })
       .listen('.App\\Events\\FavoriteReactionEvent', (e: any) => {
-        console.log(e.user)
+        const { id, model, favorite_state } = e
+
+        localforage
+          .getItem(`${model}.${id}`)
+          .then((val) => {
+            const reaction = val as Reaction
+
+            reaction.favorite_state = favorite_state
+
+            localforage.setItem(`${model}.${id}`, reaction)
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
       })
       .notification((notification: any) => {
         console.log(notification.type)

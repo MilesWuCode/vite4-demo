@@ -2,18 +2,14 @@
 import { useQuery } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import PostListSwiper from '@/components/Post/ListSwiper.vue'
+import localforage from 'localforage'
 
 export type Post = {
   id: string
   title: string
   content: string
   cover: string
-  reaction: {
-    like_count: number
-    dislike_count: number
-    like_state: 'like' | 'dislike'
-    favorite_state: boolean
-  }
+  reaction: Reaction
   user: {
     id: string
     name: string
@@ -30,10 +26,23 @@ export type Posts = {
   }
 }
 
+export type Reaction = {
+  like_count: number
+  dislike_count: number
+  like_state: 'like' | 'dislike' | ''
+  favorite_state: boolean
+}
+
 const fetchPosts = () => {
-  return axios.get('/api/post', { params: { page: 1, limit: 20 } }).then(({ data }) => {
-    return data
-  })
+  return axios
+    .get('/api/post', { params: { page: 1, limit: 20 } })
+    .then(({ data }: { data: Posts }) => {
+      Object.values(data.data).forEach((item) => {
+        localforage.setItem('post.' + item.id, item.reaction)
+      })
+
+      return data
+    })
 }
 
 const { isLoading, isError, data, error } = useQuery<Posts, Error>({
