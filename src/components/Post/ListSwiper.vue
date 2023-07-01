@@ -29,7 +29,7 @@ const onSlideChange = (e: any) => {
     :pagination="{
       hideOnClick: false
     }"
-    :loop="true"
+    :loop="false"
     @progress="onProgress"
     @slidechange="onSlideChange"
     class="h-96"

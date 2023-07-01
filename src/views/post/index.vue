@@ -42,7 +42,7 @@ export type FavoriteCatch = {
 
 const fetchPosts = () => {
   return axios
-    .get('/api/post', { params: { page: 1, limit: 20 } })
+    .get('/api/post', { params: { page: 1, limit: 6 } })
     .then(({ data }: { data: Posts }) => {
       // api建立時間或快取時間
       const catchTime = data.cached_at
@@ -89,30 +89,36 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
     </ul>
   </div>
 
-  <!-- loading -->
-  <div v-if="isLoading" class="flex items-center justify-center">
-    <span class="loading loading-spinner loading-md"></span>
+  <h2 class="text-2xl">New Post</h2>
+  <div>
+    <!-- loading -->
+    <div v-if="isLoading" class="flex items-center justify-center">
+      <span class="loading loading-spinner loading-md"></span>
+    </div>
+
+    <!-- error -->
+    <div v-else-if="isError" class="flex items-center justify-center">
+      {{ error?.message }}
+    </div>
+
+    <!-- swiper -->
+    <PostListSwiper v-else-if="data" :posts="data" />
   </div>
 
-  <!-- error -->
-  <div v-else-if="isError" class="flex items-center justify-center">
-    {{ error?.message }}
-  </div>
+  <h2 class="text-2xl">My Post</h2>
+  <div>
+    <div v-if="data" class="flex flex-wrap justify-center">
+      <PostCard v-for="post in data.data" :key="post.id" :post="post" class="m-2 w-[24rem]" />
+    </div>
 
-  <!-- swiper -->
-  <PostListSwiper v-else-if="data" :posts="data" />
-
-  <div v-if="data" class="flex flex-wrap justify-center">
-    <PostCard v-for="post in data.data" :key="post.id" :post="post" class="m-2 w-[24rem]" />
-  </div>
-
-  <!-- Pagination -->
-  <div class="flex justify-center py-4">
-    <div class="join">
-      <button class="join-item btn">1</button>
-      <button class="btn-active join-item btn">2</button>
-      <button class="join-item btn">3</button>
-      <button class="join-item btn">4</button>
+    <!-- Pagination -->
+    <div class="flex justify-center">
+      <div class="join">
+        <button class="join-item btn">1</button>
+        <button class="btn-active join-item btn">2</button>
+        <button class="join-item btn">3</button>
+        <button class="join-item btn">4</button>
+      </div>
     </div>
   </div>
 </template>
