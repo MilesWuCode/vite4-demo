@@ -107,12 +107,12 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
 
   <h2 class="text-2xl">My Post</h2>
   <div>
-    <div v-if="data" class="flex flex-wrap justify-center md:gap-4">
+    <div v-if="data" class="flex flex-wrap justify-center gap-4 md:justify-start md:px-4">
       <PostCard v-for="post in data.data" :key="post.id" :post="post" class="w-[24rem] max-w-sm" />
     </div>
 
     <!-- Pagination -->
-    <div class="flex justify-center">
+    <div class="my-4 flex justify-center">
       <div class="join">
         <button class="join-item btn">1</button>
         <button class="btn-active join-item btn">2</button>
