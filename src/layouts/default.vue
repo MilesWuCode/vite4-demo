@@ -21,7 +21,7 @@ const showSidebar = ref(true)
     <Sidebar :show="showSidebar" />
 
     <!-- right -->
-    <div :class="showSidebar && 'lg:pl-60'" class="flex flex-col min-h-[calc(100vh-70px)]">
+    <div :class="showSidebar && 'lg:pl-60'" class="flex min-h-[calc(100vh-70px)] flex-col">
       <!-- page -->
       <div class="flex-1">
         <RouterView />

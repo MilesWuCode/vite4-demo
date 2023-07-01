@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="shadow-xl card card-compact bg-base-100">
+  <div class="card-compact card bg-base-100 shadow-xl">
     <div class="relative">
       <RouterLink :to="`/post/${post.id}`">
         <!-- Skeleton Screen -->
@@ -27,13 +27,13 @@ defineProps<{
         </div> -->
 
         <!-- image -->
-        <img :src="post.cover" :alt="post.title" class="object-cover w-full h-48" loading="lazy" />
+        <img :src="post.cover" :alt="post.title" class="h-48 w-full object-cover" loading="lazy" />
       </RouterLink>
       <Favorite class="absolute bottom-1 right-1" :post="post" />
     </div>
     <div class="card-body">
-      <h2 class="truncate card-title">{{ `${post.id} - ${post.title}` }}</h2>
-      <p class="h-20 line-clamp-4">{{ post.content }}</p>
+      <h2 class="card-title truncate">{{ `${post.id} - ${post.title}` }}</h2>
+      <p class="line-clamp-4 h-20">{{ post.content }}</p>
     </div>
   </div>
 </template>

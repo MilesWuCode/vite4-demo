@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import localforage from 'localforage'
 import PostListSwiper from '@/components/Post/ListSwiper.vue'
+import PostCard from '@/components/Post/Card.vue'
 
 export type Post = {
   id: string
@@ -78,7 +79,7 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
   <h1 class="text-3xl">Post</h1>
 
   <!-- breadcrumbs -->
-  <div class="text-sm breadcrumbs">
+  <div class="breadcrumbs text-sm">
     <ul>
       <li>Long text 1</li>
       <li>Long text 2</li>
@@ -100,4 +101,24 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
 
   <!-- swiper -->
   <PostListSwiper v-else-if="data" :posts="data" />
+
+  <div v-if="data" class="flex flex-wrap justify-center">
+    <PostCard v-for="post in data.data" :key="post.id" :post="post" class="m-2 w-[24rem]" />
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex justify-center py-4">
+    <div class="join">
+      <button class="join-item btn">1</button>
+      <button class="btn-active join-item btn">2</button>
+      <button class="join-item btn">3</button>
+      <button class="join-item btn">4</button>
+    </div>
+  </div>
 </template>
+
+<style lang="postcss" scoped>
+.box {
+  @apply h-32 w-full bg-green-300;
+}
+</style>
