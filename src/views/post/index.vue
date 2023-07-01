@@ -107,7 +107,7 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
 
   <h2 class="text-2xl">My Post</h2>
   <div>
-    <div v-if="data" class="flex w-full flex-wrap justify-center md:gap-4">
+    <div v-if="data" class="flex flex-wrap justify-center md:gap-4">
       <PostCard v-for="post in data.data" :key="post.id" :post="post" class="w-[24rem] max-w-sm" />
     </div>
 
