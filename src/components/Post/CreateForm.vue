@@ -42,9 +42,7 @@ configure({
 
 setLocale('zhTW')
 
-const formRef = ref<HTMLFormElement>()
-
-const { handleSubmit, setFieldError, setErrors } = useForm<FormType>()
+const { handleSubmit, setFieldError, setErrors, resetForm } = useForm<FormType>()
 
 const { mutate, isLoading } = useMutation({
   mutationFn: (formValues: FormType) => axios.post('/api/post', formValues),
@@ -76,7 +74,7 @@ const { mutate, isLoading } = useMutation({
     notyf.success('新增成功')
 
     // 欄位清空
-    formRef.value && formRef.value.reset()
+    resetForm()
 
     // dialog關閉
     emit('close')
@@ -109,7 +107,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
 </script>
 
 <template>
-  <form @submit="onSubmit" ref="formRef" novalidate>
+  <form @submit="onSubmit" novalidate>
     <div class="form-control">
       <label class="label">
         <span class="label-text">Title</span>
@@ -137,7 +135,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
         <span class="label-text">Content</span>
         <span class="label-text-alt"></span>
       </label>
-      <Field name="content" label="Content" rules="required|max:2000" v-slot="{ field }">
+      <Field name="content" label="Content" rules="max:2000" v-slot="{ field }">
         <textarea
           v-bind="field"
           class="textarea-bordered textarea h-32"
