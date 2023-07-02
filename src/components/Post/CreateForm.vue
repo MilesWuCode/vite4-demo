@@ -1,55 +1,58 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import { required, email, min, max } from '@vee-validate/rules'
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
-import axios from '@/utils/axios'
-import EmailVerifyInput from '@/components/Profile/EmailVerifyInput.vue'
-import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import notyf from '@/utils/notyf'
+import { ref } from 'vue'
+import { required, max } from '@vee-validate/rules'
+import { useAuthStore } from '@/stores/auth'
+import { useMutation } from '@tanstack/vue-query'
+import { useRoute, useRouter } from 'vue-router'
+import axios from '@/utils/axios'
+import Cookies from 'js-cookie'
+import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
-import { useAuthStore } from '@/stores/auth'
-
-const props = defineProps<{
-  data: { id: number | string; name: string }
-}>()
 
 type FormType = {
-  name: string
+  title: string
+  coantent: string
 }
 
 defineRule('required', required)
-defineRule('email', email)
-defineRule('min', min)
+
 defineRule('max', max)
 
+/**
+ * 因為表單在dialog裡
+ * 按esc時會onBlur出現驗證錯誤
+ * 關閉validateOnBlur可以避免
+ */
 configure({
   generateMessage: localize({
     ja,
     zhTW
-  })
+  }),
   // 驗證時機,限<Field />使用
   // validateOnInput: true,
   // validateOnChange: true,
-  // validateOnBlur: true,
-  // validateOnModelUpdate: true,
+  validateOnBlur: false
+  // validateOnModelUpdate: true
 })
 
 setLocale('zhTW')
 
-const initialValues = {
-  name: props.data.name
-}
+const route = useRoute()
 
-const { handleSubmit, setFieldError, setErrors } = useForm<FormType>({
-  initialValues: initialValues
-})
+const router = useRouter()
 
 const authStore = useAuthStore()
 
+const { redirect } = route.query
+
+const { handleSubmit, setFieldError, setErrors } = useForm<FormType>()
+
 const { mutate, isLoading } = useMutation({
-  mutationFn: (formValues: FormType) => axios.put('/api/me', formValues),
+  mutationFn: (formValues: FormType) => axios.post('/api/post', formValues),
   onMutate: (variables) => {
     console.log('onMutate', variables)
     // 送出前
@@ -75,10 +78,7 @@ const { mutate, isLoading } = useMutation({
     // 回傳
     console.log('onSuccess', data, variables, context)
 
-    // 更新資料
-    authStore.fetchUser()
-
-    notyf.success('更新成功')
+    notyf.success('新增成功')
   },
   onSettled: (data, error, variables, context) => {
     // 結束
@@ -109,32 +109,49 @@ function onInvalidSubmit({ values, errors, results }: any) {
 
 <template>
   <form @submit="onSubmit" novalidate>
-    <div class="form-control w-full max-w-sm">
+    <div class="form-control">
       <label class="label">
-        <span class="label-text">Name</span>
+        <span class="label-text">Title</span>
         <span class="label-text-alt"></span>
       </label>
       <Field
-        name="name"
-        label="名字"
+        name="title"
+        label="Title"
         type="text"
-        placeholder="Your Name"
+        placeholder="Post Title"
         class="input-bordered input"
-        rules="required|max:20"
+        rules="required|max:200"
+        autofocus
       />
       <label class="label">
         <span class="label-text-alt"></span>
         <span class="label-text-alt text-red-500">
-          <ErrorMessage name="name" />
+          <ErrorMessage name="title" />
         </span>
       </label>
     </div>
 
-    <EmailVerifyInput />
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">Content</span>
+        <span class="label-text-alt"></span>
+      </label>
+      <Field name="content" label="Content" rules="required|max:2000" v-slot="{ field }">
+        <textarea
+          v-bind="field"
+          class="textarea-bordered textarea h-32"
+          placeholder="Post Content"
+        ></textarea>
+      </Field>
+      <label class="label">
+        <span class="label-text-alt"></span>
+        <span class="label-text-alt text-red-500"><ErrorMessage name="content" /></span>
+      </label>
+    </div>
 
     <!-- submit -->
-    <div class="flex w-full max-w-sm flex-col space-y-2">
-      <button type="submit" class="btn-primary btn w-full" :disabled="isLoading">Submit</button>
+    <div class="flex flex-col space-y-2">
+      <button type="submit" class="btn-primary btn" :disabled="isLoading">Submit</button>
     </div>
   </form>
 </template>

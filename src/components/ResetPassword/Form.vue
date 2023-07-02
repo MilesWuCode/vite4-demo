@@ -101,7 +101,10 @@ const onSubmit = (values: any) => {
   mutate(values)
 }
 
-// 只能設any
+/**
+ * 表單送出驗證有錯時對欄位focus
+ * ts目前只能設any
+ */
 function onInvalidSubmit({ values, errors, results }: any) {
   for (var item in errors) {
     document.getElementsByName(item)[0].focus()
@@ -122,7 +125,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
     @invalid-submit="onInvalidSubmit"
     ref="formRef"
   >
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control w-full max-w-sm">
       <label class="label">
         <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
@@ -137,11 +140,11 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
+        <span class="label-text-alt text-red-500"><ErrorMessage name="password" /></span>
       </label>
     </div>
 
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control w-full max-w-sm">
       <label class="label">
         <span class="label-text">Comfirm Password</span>
         <span class="label-text-alt"></span>
@@ -156,12 +159,12 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="comfirm_password" /></span>
+        <span class="label-text-alt text-red-500"><ErrorMessage name="comfirm_password" /></span>
       </label>
     </div>
 
-    <div class="flex flex-col w-full max-w-sm space-y-2">
-      <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
+    <div class="flex w-full max-w-sm flex-col space-y-2">
+      <button type="submit" class="btn-primary btn w-full" :disabled="isLoading">Submit</button>
     </div>
   </Form>
 </template>

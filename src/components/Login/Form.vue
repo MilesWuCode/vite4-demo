@@ -105,7 +105,10 @@ function switchLanguage() {
   setLocale(lang.value)
 }
 
-// 只能設any
+/**
+ * 表單送出驗證有錯時對欄位focus
+ * ts目前只能設any
+ */
 function onInvalidSubmit({ values, errors, results }: any) {
   for (var item in errors) {
     document.getElementsByName(item)[0].focus()

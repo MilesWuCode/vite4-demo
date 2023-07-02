@@ -65,7 +65,10 @@ const onSubmit = handleSubmit((values) => {
   mutate(values)
 }, onInvalidSubmit)
 
-// 只能設any
+/**
+ * 表單送出驗證有錯時對欄位focus
+ * ts目前只能設any
+ */
 function onInvalidSubmit({ values, errors, results }: any) {
   for (var item in errors) {
     document.getElementsByName(item)[0].focus()
@@ -82,7 +85,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
 <template>
   <form @submit="onSubmit" novalidate>
     <!-- input group -->
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control w-full max-w-sm">
       <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
@@ -97,15 +100,15 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt">
+        <span class="label-text-alt text-red-500">
           <ErrorMessage name="email" />
         </span>
       </label>
     </div>
 
     <!-- submit -->
-    <div class="flex flex-col w-full max-w-sm space-y-2">
-      <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
+    <div class="flex w-full max-w-sm flex-col space-y-2">
+      <button type="submit" class="btn-primary btn w-full" :disabled="isLoading">Submit</button>
     </div>
   </form>
 </template>

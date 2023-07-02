@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginForm from '@/components/Login/Form.vue'
+import PostCreateForm from '@/components/Post/CreateForm.vue'
 import { ref } from 'vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 
@@ -12,22 +12,20 @@ const open = () => {
 const close = () => {
   dialog.value && dialog.value.close()
 }
-
-const onSubmit = () => {
-  console.log('onSubmit')
-  return
-}
 </script>
 
 <template>
-  <!-- Open the modal using ID.showModal() method -->
-  <!-- Open the modal using ID.showModal() method -->
-  <button class="btn" @click="open">open modal</button>
+  <button class="btn" @click="open">Create</button>
   <dialog ref="dialog" class="modal">
     <form method="dialog" class="modal-box">
-      <button class="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"><CloseIcon /></button>
+      <button class="btn-ghost btn-sm btn-circle btn absolute right-2 top-2" type="submit">
+        <CloseIcon />
+      </button>
 
-      <LoginForm />
+      <PostCreateForm />
+    </form>
+    <form method="dialog" class="modal-backdrop">
+      <button type="submit">close</button>
     </form>
   </dialog>
 </template>
