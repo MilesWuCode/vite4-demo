@@ -115,7 +115,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
     @invalid-submit="onInvalidSubmit"
     ref="formRef"
   >
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control">
       <label class="label">
         <span class="label-text">Name</span>
         <span class="label-text-alt"></span>
@@ -130,13 +130,13 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt">
+        <span class="label-text-alt text-red-500">
           <ErrorMessage name="name" />
         </span>
       </label>
     </div>
 
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control">
       <label class="label">
         <span class="label-text">Email</span>
         <span class="label-text-alt"></span>
@@ -151,13 +151,13 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt">
+        <span class="label-text-alt text-red-500">
           <ErrorMessage name="email" />
         </span>
       </label>
     </div>
 
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control">
       <label class="label">
         <span class="label-text">Password</span>
         <span class="label-text-alt"></span>
@@ -172,11 +172,11 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="password" /></span>
+        <span class="label-text-alt text-red-500"><ErrorMessage name="password" /></span>
       </label>
     </div>
 
-    <div class="w-full max-w-sm form-control">
+    <div class="form-control">
       <label class="label">
         <span class="label-text">Comfirm Password</span>
         <span class="label-text-alt"></span>
@@ -191,26 +191,24 @@ function onInvalidSubmit({ values, errors, results }: any) {
       />
       <label class="label">
         <span class="label-text-alt"></span>
-        <span class="text-red-500 label-text-alt"><ErrorMessage name="comfirm_password" /></span>
+        <span class="label-text-alt text-red-500"><ErrorMessage name="comfirm_password" /></span>
       </label>
     </div>
 
-    <div class="w-full max-w-sm">
-      <label class="cursor-pointer label">
-        <span class="label-text">Switch language</span>
-        <input
-          v-model="lang"
-          type="checkbox"
-          class="toggle"
-          true-value="zhTW"
-          false-value="ja"
-          @change="switchLanguage"
-        />
-      </label>
-    </div>
+    <label class="label cursor-pointer">
+      <span class="label-text">Switch language</span>
+      <input
+        v-model="lang"
+        type="checkbox"
+        class="toggle"
+        true-value="zhTW"
+        false-value="ja"
+        @change="switchLanguage"
+      />
+    </label>
 
-    <div class="flex flex-col w-full max-w-sm space-y-2">
-      <button type="submit" class="w-full btn-primary btn" :disabled="isLoading">Submit</button>
+    <div class="flex flex-col space-y-2">
+      <button type="submit" class="btn-primary btn w-full" :disabled="isLoading">Submit</button>
     </div>
   </Form>
 </template>

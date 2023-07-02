@@ -4,6 +4,7 @@ import axios from '@/utils/axios'
 import localforage from 'localforage'
 import PostListSwiper from '@/components/Post/ListSwiper.vue'
 import PostCard from '@/components/Post/Card.vue'
+import PostCreateDialog from '@/components/Post/CreateDialog.vue'
 
 export type Post = {
   id: string
@@ -121,6 +122,8 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
       </div>
     </div>
   </div>
+
+  <PostCreateDialog />
 </template>
 
 <style lang="postcss" scoped>
