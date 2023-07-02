@@ -34,10 +34,18 @@ const next = () => {
 
 <template>
   <div class="relative">
-    <button type="button" class="btn-circle btn absolute left-4 top-[40%] z-10" @click="prev">
+    <button
+      type="button"
+      class="btn-circle btn absolute left-4 top-[40%] z-10 hidden md:block"
+      @click="prev"
+    >
       ❮
     </button>
-    <button type="button" class="btn-circle btn absolute right-4 top-[40%] z-10" @click="next">
+    <button
+      type="button"
+      class="btn-circle btn absolute right-4 top-[40%] z-10 hidden md:block"
+      @click="next"
+    >
       ❯
     </button>
     <swiper-container
