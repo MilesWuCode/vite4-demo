@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import notyf from '@/utils/notyf'
 import { ref } from 'vue'
 import { required, max } from '@vee-validate/rules'
-import { useAuthStore } from '@/stores/auth'
 import { useMutation } from '@tanstack/vue-query'
-import { useRoute, useRouter } from 'vue-router'
 import axios from '@/utils/axios'
-import Cookies from 'js-cookie'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
+import notyf from '@/utils/notyf'
 import type { AxiosError } from 'axios'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
+
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 
 type FormType = {
   title: string
@@ -41,13 +42,7 @@ configure({
 
 setLocale('zhTW')
 
-const route = useRoute()
-
-const router = useRouter()
-
-const authStore = useAuthStore()
-
-const { redirect } = route.query
+const formRef = ref<HTMLFormElement>()
 
 const { handleSubmit, setFieldError, setErrors } = useForm<FormType>()
 
@@ -79,6 +74,12 @@ const { mutate, isLoading } = useMutation({
     console.log('onSuccess', data, variables, context)
 
     notyf.success('新增成功')
+
+    // 欄位清空
+    formRef.value && formRef.value.reset()
+
+    // dialog關閉
+    emit('close')
   },
   onSettled: (data, error, variables, context) => {
     // 結束
@@ -108,7 +109,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
 </script>
 
 <template>
-  <form @submit="onSubmit" novalidate>
+  <form @submit="onSubmit" ref="formRef" novalidate>
     <div class="form-control">
       <label class="label">
         <span class="label-text">Title</span>

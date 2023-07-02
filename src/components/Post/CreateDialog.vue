@@ -22,7 +22,7 @@ const close = () => {
         <CloseIcon />
       </button>
 
-      <PostCreateForm />
+      <PostCreateForm @close="close" />
     </form>
     <form method="dialog" class="modal-backdrop">
       <button type="submit">close</button>
