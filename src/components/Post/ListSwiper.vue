@@ -29,7 +29,7 @@ const onSlideChange = (e: any) => {
     :centered-slides="false"
     :free-mode="true"
     :keyboard="true"
-    :loop="true"
+    :rewind="true"
     :mousewheel="false"
     :navigation="true"
     :pagination-clickable="true"
