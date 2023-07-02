@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
-import { ref } from 'vue'
 import { required, max } from '@vee-validate/rules'
 import { useMutation } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
@@ -46,13 +45,13 @@ const { handleSubmit, setFieldError, setErrors, resetForm } = useForm<FormType>(
 
 const { mutate, isLoading } = useMutation({
   mutationFn: (formValues: FormType) => axios.post('/api/post', formValues),
-  onMutate: (variables) => {
-    console.log('onMutate', variables)
-    // 送出前
+  // onMutate: (variables) => {
+  //   console.log('onMutate', variables)
+  //   // 送出前
 
-    // Optionally return a context containing data to use when for example rolling back
-    return { id: 1 }
-  },
+  //   // Optionally return a context containing data to use when for example rolling back
+  //   return { id: 1 }
+  // },
   onError: (error: AxiosError, variables, context) => {
     // 錯誤
     console.log('onError', error, variables, context)
