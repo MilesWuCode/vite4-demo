@@ -22,9 +22,11 @@ const onSlideChange = (e: any) => {
   console.log('slide changed', e)
 }
 const swiperEl = ref(null)
+
 const prev = () => {
   swiperEl.value && swiperEl.value.swiper.slidePrev()
 }
+
 const next = () => {
   swiperEl.value && swiperEl.value.swiper.slideNext()
 }
