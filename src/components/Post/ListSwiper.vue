@@ -4,6 +4,7 @@ import PostCard from '@/components/Post/Card.vue'
 
 // @ts-ignore
 import { register } from 'swiper/element/bundle'
+
 register()
 
 defineProps<{
@@ -24,12 +25,16 @@ const onSlideChange = (e: any) => {
 <template>
   <swiper-container
     slides-per-view="auto"
-    :space-between="14"
-    :centered-slides="true"
-    :pagination="{
-      hideOnClick: false
-    }"
-    :loop="false"
+    :autoplay-delay="3000"
+    :centered-slides="false"
+    :free-mode="true"
+    :keyboard="true"
+    :loop="true"
+    :mousewheel="false"
+    :navigation="true"
+    :pagination-clickable="true"
+    :pagination="true"
+    :space-between="16"
     @progress="onProgress"
     @slidechange="onSlideChange"
     class="h-96"
