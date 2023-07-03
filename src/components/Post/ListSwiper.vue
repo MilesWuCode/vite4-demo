@@ -5,6 +5,7 @@ import PostCard from '@/components/Post/Card.vue'
 // @ts-ignore
 import { register } from 'swiper/element/bundle'
 import { ref } from 'vue'
+import type { SwiperContainer } from 'swiper/element'
 
 register()
 
@@ -21,7 +22,7 @@ const onSlideChange = (e: any) => {
   // console.log('slide changed', e)
 }
 
-const swiperEl = ref(null)
+const swiperEl = ref<SwiperContainer>()
 
 const prev = () => {
   swiperEl.value && swiperEl.value.swiper.slidePrev()
