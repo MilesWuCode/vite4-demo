@@ -83,9 +83,7 @@ const { mutate, isLoading } = useMutation({
     // 回傳
     console.log('onSuccess', data, variables, context)
 
-    Cookies.set('token', data.data.token)
-
-    authStore.checkState()
+    authStore.login(data.data.token)
 
     router.push((redirect as string) || '/')
 

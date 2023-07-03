@@ -13,14 +13,14 @@ defineProps<{
 }>()
 
 const onProgress = (e: any) => {
-  const [progress] = e.detail
-
-  console.log(progress)
+  // const [progress] = e.detail
+  // console.log(progress)
 }
 
 const onSlideChange = (e: any) => {
-  console.log('slide changed', e)
+  // console.log('slide changed', e)
 }
+
 const swiperEl = ref(null)
 
 const prev = () => {

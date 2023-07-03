@@ -18,6 +18,17 @@ export const useAuthStore = defineStore('auth', () => {
 
   const user = ref<User | null>(null)
 
+  /**
+   * 執行登入
+   */
+  async function login(token: string) {
+    localforage.clear()
+
+    Cookies.set('token', token)
+
+    checkState()
+  }
+
   async function checkState() {
     // 有token表示登入中
     const state = !!Cookies.get('token')
@@ -97,5 +108,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { isLogin, user, checkState, logout, fetchUser }
+  return { isLogin, user, checkState, login, logout, fetchUser }
 })
