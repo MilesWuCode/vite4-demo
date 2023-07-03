@@ -46,7 +46,7 @@ const fetchPosts = () => {
     .get('/api/post', { params: { page: 1, limit: 6 } })
     .then(({ data }: { data: Posts }) => {
       // api建立時間或快取時間
-      const catchTime = data.cached_at
+      const catchTime = new Date(data.cached_at)
 
       // favorite
       Object.values(data.data).forEach((item) => {
@@ -54,7 +54,7 @@ const fetchPosts = () => {
         localforage.getItem(`post.${item.id}.favorite`).then((val) => {
           const favorite = val as FavoriteCatch
 
-          // 沒有資料或時間小於快取時間
+          // 沒有資料或資料時間小於快取時間
           if (favorite === null || favorite?.time < catchTime) {
             // 存入indexedDB
             localforage.setItem(`post.${item.id}.favorite`, {
