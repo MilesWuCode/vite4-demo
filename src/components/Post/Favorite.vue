@@ -40,6 +40,11 @@ const { mutate, isLoading } = useMutation({
   onSuccess: (data, variables, context) => {
     console.log('onSuccess', data, variables, context)
 
+    localforage.setItem(`post.${props.post.id}.favorite`, {
+      state: isFavorite.value,
+      time: new Date()
+    })
+
     notyf.success((isFavorite.value ? '加入' : '移除') + '最愛')
 
     // 使用websocket不用再做更新
@@ -80,17 +85,17 @@ const updateQueryCache = () => {
 
 <template>
   <label class="swap">
-    <span v-if="isLoading" class="text-red-500 loading loading-spinner loading-md"></span>
+    <span v-if="isLoading" class="loading loading-spinner loading-md text-red-500"></span>
 
     <template v-else>
       <!-- this hidden checkbox controls the state -->
       <input type="checkbox" v-model="isFavorite" @change="() => mutate()" />
 
       <!-- on -->
-      <OnIcon class="text-red-500 fill-current swap-on" />
+      <OnIcon class="swap-on fill-current text-red-500" />
 
       <!-- off -->
-      <OffIcon class="text-red-500 fill-current swap-off" />
+      <OffIcon class="swap-off fill-current text-red-500" />
     </template>
   </label>
 </template>
