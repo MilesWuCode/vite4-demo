@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import axios from '@/utils/axios'
 import Cookies from 'js-cookie'
 import localforage from 'localforage'
+import { QueryCache } from '@tanstack/vue-query'
 
 type User = {
   id: number | string
@@ -23,6 +24,10 @@ export const useAuthStore = defineStore('auth', () => {
    */
   async function login(token: string) {
     localforage.clear()
+
+    const queryCache = new QueryCache()
+
+    queryCache.clear()
 
     Cookies.set('token', token)
 
@@ -66,6 +71,10 @@ export const useAuthStore = defineStore('auth', () => {
     window.Echo.leaveAllChannels()
 
     localforage.clear()
+
+    const queryCache = new QueryCache()
+
+    queryCache.clear()
 
     await axios.post('/api/auth/logout').finally(() => {
       Cookies.remove('token')
