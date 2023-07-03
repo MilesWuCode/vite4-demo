@@ -52,7 +52,7 @@ const next = () => {
       ref="swiperEl"
       slides-per-view="auto"
       :autoplay-delay="3000"
-      :centered-slides="false"
+      :centered-slides="true"
       :free-mode="true"
       :keyboard="true"
       :rewind="true"
@@ -60,9 +60,14 @@ const next = () => {
       :navigation="false"
       :pagination-clickable="true"
       :pagination="true"
-      :space-between="16"
+      :space-between="8"
       @progress="onProgress"
       @slidechange="onSlideChange"
+      :breakpoints="{
+        500: {
+          centeredSlides: false
+        }
+      }"
       class="h-96"
     >
       <swiper-slide v-for="post in posts.data" :key="post.id" class="max-w-sm">
