@@ -49,13 +49,13 @@ const removeTodo = (id: string) => {
     <!-- input -->
     <div class="form-control">
       <div class="input-group">
-        <input v-model.trim="input" type="text" class="w-full input-bordered input" />
+        <input v-model.trim="input" type="text" class="input-bordered input w-full" />
         <button class="btn-square btn" @click="addTodo">add</button>
       </div>
     </div>
 
     <!-- tabs -->
-    <div class="justify-around tabs">
+    <div class="tabs justify-around">
       <!-- completed / total -->
       <span class="tab">{{ store.completedTotal }} / {{ store.total }}</span>
 

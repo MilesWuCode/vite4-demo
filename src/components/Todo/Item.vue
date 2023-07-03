@@ -30,16 +30,16 @@ const onRemove = () => {
       true-value="completed"
       false-value="active"
       type="checkbox"
-      class="flex-none checkbox"
+      class="checkbox flex-none"
       @change="onChange"
     />
 
     <!-- content -->
-    <div class="w-full break-words grow" :class="state === 'completed' && 'line-through'">
+    <div class="w-full grow break-words" :class="state === 'completed' && 'line-through'">
       {{ todo.content }}
     </div>
 
     <!-- delete button -->
-    <button class="flex-none btn-sm btn" @click="onRemove">Del</button>
+    <button class="btn-sm btn flex-none" @click="onRemove">Del</button>
   </div>
 </template>

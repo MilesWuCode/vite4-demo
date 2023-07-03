@@ -30,12 +30,12 @@ const closeBtn = ref()
     <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
 
     <!-- panel -->
-    <DialogPanel class="relative flex flex-col h-full bg-white w-72">
-      <div class="h-16 space-x-2 border border-b navbar border-gray">
+    <DialogPanel class="relative flex h-full w-72 flex-col bg-white">
+      <div class="border-gray navbar h-16 space-x-2 border border-b">
         <button
           type="button"
           ref="closeBtn"
-          class="lg:hidden btn btn-circle btn-ghost"
+          class="btn-ghost btn-circle btn lg:hidden"
           @click="emit('update:show', !show)"
         >
           <CloseIcon />

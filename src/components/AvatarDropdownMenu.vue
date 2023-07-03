@@ -69,15 +69,15 @@ function echoListen(run: boolean) {
 </script>
 
 <template>
-  <div v-if="isLogin" class="dropdown dropdown-end">
-    <label tabindex="0" class="btn btn-circle btn-ghost avatar">
+  <div v-if="isLogin" class="dropdown-end dropdown">
+    <label tabindex="0" class="btn-ghost btn-circle avatar btn">
       <div class="rounded-full">
         <img :src="user?.avatar" />
       </div>
     </label>
     <ul
       tabindex="0"
-      class="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+      class="menu-compact dropdown-content menu rounded-box mt-3 w-52 bg-base-100 p-2 shadow"
     >
       <li>
         <a class="justify-between">

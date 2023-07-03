@@ -47,11 +47,11 @@ if (email && code) {
   <div>
     <template v-if="isLoading">loading...</template>
     <template v-else-if="isError || !email || !code">
-      <div class="shadow-lg alert alert-error">
+      <div class="alert alert-error shadow-lg">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="flex-shrink-0 w-6 h-6 stroke-current"
+            class="h-6 w-6 flex-shrink-0 stroke-current"
             fill="none"
             viewBox="0 0 24 24"
           >
@@ -67,11 +67,11 @@ if (email && code) {
       </div>
     </template>
     <template v-else>
-      <div class="shadow-lg alert alert-success">
+      <div class="alert alert-success shadow-lg">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="flex-shrink-0 w-6 h-6 stroke-current"
+            class="h-6 w-6 flex-shrink-0 stroke-current"
             fill="none"
             viewBox="0 0 24 24"
           >

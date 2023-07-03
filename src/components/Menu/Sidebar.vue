@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <div
     v-if="show"
-    class="fixed bottom-0 hidden overflow-y-hidden border-r top-16 w-60 lg:block border-gray hover:overflow-y-scroll"
+    class="border-gray fixed bottom-0 top-16 hidden w-60 overflow-y-hidden border-r hover:overflow-y-scroll lg:block"
   >
     <List />
   </div>

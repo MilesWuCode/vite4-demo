@@ -1,6 +1,6 @@
 <template>
-  <footer class="items-center p-4 border-t footer border-gray">
-    <div class="items-center grid-flow-col">
+  <footer class="border-gray footer items-center border-t p-4">
+    <div class="grid-flow-col items-center">
       <p>Copyright © 2023 - All right reserved</p>
     </div>
   </footer>
