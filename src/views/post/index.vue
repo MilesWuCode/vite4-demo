@@ -22,9 +22,9 @@ export type Posts = {
   cached_at: Date
   data: Post[]
   meta: {
-    currentPage: number
-    perPage: number
-    lastPage: number
+    current_page: number
+    per_page: number
+    last_page: number
   }
 }
 

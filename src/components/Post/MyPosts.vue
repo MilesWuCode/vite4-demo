@@ -8,9 +8,13 @@ import Pagination from '@/components/Pagination.vue'
 import type { Posts, FavoriteCatch } from '@/views/post/index.vue'
 import { ref, watch } from 'vue'
 
-const fetchData = () => {
+const currentPage = ref(1)
+const totalPage = ref(0)
+
+const fetchData = (page: number) => {
+  console.log('page', page)
   return axios
-    .get('/api/post', { params: { page: 1, limit: 4 } })
+    .get('/api/post', { params: { page, limit: 4 } })
     .then(({ data }: { data: Posts }) => {
       // api建立時間或快取時間
       const catchTime = new Date(data.cached_at)
@@ -32,18 +36,20 @@ const fetchData = () => {
         })
       })
 
+      console.log(data)
+
+      totalPage.value = data.meta.last_page
+
       return data
     })
 }
 
 const { isLoading, isError, data, error } = useQuery<Posts, Error>({
-  queryKey: ['my-posts'],
-  queryFn: fetchData
+  queryKey: ['my-posts', currentPage.value],
+  queryFn: () => fetchData(currentPage.value)
 })
 
-const page = ref(1)
-
-watch(page, (newVal, oldVal) => {
+watch(currentPage, (newVal, oldVal) => {
   console.log({ oldVal, newVal })
 })
 </script>
@@ -70,7 +76,7 @@ watch(page, (newVal, oldVal) => {
 
     <!-- Pagination -->
     <div class="flex justify-center">
-      <Pagination :total-page="20" v-model="page" />
+      <Pagination :total-page="totalPage" v-model="currentPage" />
     </div>
   </div>
 </template>
