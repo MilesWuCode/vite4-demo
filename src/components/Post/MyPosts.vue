@@ -6,15 +6,15 @@ import PostCard from '@/components/Post/Card.vue'
 import PostCreateDialog from '@/components/Post/CreateDialog.vue'
 import Pagination from '@/components/Pagination.vue'
 import type { Posts, FavoriteCatch } from '@/views/post/index.vue'
-import { ref, watch } from 'vue'
+import { ref, watch, type Ref } from 'vue'
 
 const currentPage = ref(1)
 
 const totalPage = ref(0)
 
-const fetchData = (page: number) => {
+const fetchData = (page: Ref<number>) => {
   return axios
-    .get('/api/post', { params: { page, limit: 4 } })
+    .get('/api/post', { params: { page: page.value, limit: 4 } })
     .then(({ data }: { data: Posts }) => {
       // api建立時間或快取時間
       const catchTime = new Date(data.cached_at)
@@ -45,8 +45,8 @@ const fetchData = (page: number) => {
 }
 
 const { isLoading, isError, data, error } = useQuery<Posts, Error>({
-  queryKey: ['my-posts', currentPage.value],
-  queryFn: () => fetchData(currentPage.value),
+  queryKey: ['my-posts', currentPage],
+  queryFn: () => fetchData(currentPage),
   keepPreviousData: true
 })
 
