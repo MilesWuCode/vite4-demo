@@ -4,7 +4,9 @@ import axios from '@/utils/axios'
 import localforage from 'localforage'
 import PostCard from '@/components/Post/Card.vue'
 import PostCreateDialog from '@/components/Post/CreateDialog.vue'
+import Pagination from '@/components/Pagination.vue'
 import type { Posts, FavoriteCatch } from '@/views/post/index.vue'
+import { ref, watch } from 'vue'
 
 const fetchData = () => {
   return axios
@@ -38,6 +40,12 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
   queryKey: ['my-posts'],
   queryFn: fetchData
 })
+
+const page = ref(1)
+
+watch(page, (newVal, oldVal) => {
+  console.log({ oldVal, newVal })
+})
 </script>
 
 <template>
@@ -62,12 +70,7 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
 
     <!-- Pagination -->
     <div class="flex justify-center">
-      <div class="join">
-        <button class="join-item btn">1</button>
-        <button class="btn-active join-item btn">2</button>
-        <button class="join-item btn">3</button>
-        <button class="join-item btn">4</button>
-      </div>
+      <Pagination :total-page="20" v-model="page" />
     </div>
   </div>
 </template>
