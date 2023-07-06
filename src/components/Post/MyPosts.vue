@@ -6,7 +6,7 @@ import PostCard from '@/components/Post/Card.vue'
 import PostCreateDialog from '@/components/Post/CreateDialog.vue'
 import Pagination from '@/components/Pagination.vue'
 import type { Posts, FavoriteCatch } from '@/views/post/index.vue'
-import { ref, watch, type Ref } from 'vue'
+import { ref, type Ref } from 'vue'
 
 const currentPage = ref(1)
 
@@ -36,8 +36,6 @@ const fetchData = (page: Ref<number>) => {
         })
       })
 
-      console.log(data)
-
       totalPage.value = data.meta.last_page
 
       return data
@@ -48,10 +46,6 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
   queryKey: ['my-posts', currentPage],
   queryFn: () => fetchData(currentPage),
   keepPreviousData: true
-})
-
-watch(currentPage, (newVal, oldVal) => {
-  console.log({ oldVal, newVal })
 })
 </script>
 
@@ -77,7 +71,7 @@ watch(currentPage, (newVal, oldVal) => {
 
     <!-- Pagination -->
     <div class="flex justify-center">
-      <Pagination :total-page="totalPage" v-model="currentPage" />
+      <Pagination :total-page="totalPage" :max="7" v-model="currentPage" />
     </div>
   </div>
 </template>
