@@ -6,6 +6,8 @@ import PostCard from '@/components/Post/Card.vue'
 import { register } from 'swiper/element/bundle'
 import { ref } from 'vue'
 import type { SwiperContainer } from 'swiper/element'
+import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon.vue'
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue'
 
 register()
 
@@ -40,14 +42,14 @@ const next = () => {
       class="btn-circle btn absolute left-4 top-[40%] z-10 hidden md:block"
       @click="prev"
     >
-      ❮
+      <ArrowLeftIcon class="h-12 w-12" />
     </button>
     <button
       type="button"
       class="btn-circle btn absolute right-4 top-[40%] z-10 hidden md:block"
       @click="next"
     >
-      ❯
+      <ArrowRightIcon class="h-12 w-12" />
     </button>
     <swiper-container
       ref="swiperEl"
