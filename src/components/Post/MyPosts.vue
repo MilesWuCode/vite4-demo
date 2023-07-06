@@ -9,10 +9,10 @@ import type { Posts, FavoriteCatch } from '@/views/post/index.vue'
 import { ref, watch } from 'vue'
 
 const currentPage = ref(1)
+
 const totalPage = ref(0)
 
 const fetchData = (page: number) => {
-  console.log('page', page)
   return axios
     .get('/api/post', { params: { page, limit: 4 } })
     .then(({ data }: { data: Posts }) => {
@@ -46,7 +46,8 @@ const fetchData = (page: number) => {
 
 const { isLoading, isError, data, error } = useQuery<Posts, Error>({
   queryKey: ['my-posts', currentPage.value],
-  queryFn: () => fetchData(currentPage.value)
+  queryFn: () => fetchData(currentPage.value),
+  keepPreviousData: true
 })
 
 watch(currentPage, (newVal, oldVal) => {

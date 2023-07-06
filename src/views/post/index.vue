@@ -102,7 +102,7 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
     </div>
 
     <!-- swiper -->
-    <PostListSwiper v-else-if="data" :posts="data" />
+    <!-- <PostListSwiper v-else-if="data" :posts="data" /> -->
   </div>
 
   <h2 class="text-2xl">My Posts</h2>
