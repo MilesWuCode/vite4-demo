@@ -3,6 +3,10 @@
 ## 常用腳本
 
 ```sh
+# node:v20
+# npm:v9
+node -v
+
 # install
 npm create vite@latest
 
