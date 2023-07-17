@@ -4,14 +4,14 @@
 
 ```sh
 # install
-yarn create vite
+npm create vite@latest
 
 # env
 cp .env.example .env
 
 # package
-yarn install
+npm install
 
 # run
-yarn dev
+npm run dev
 ```
