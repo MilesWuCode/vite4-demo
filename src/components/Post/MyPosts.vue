@@ -14,7 +14,7 @@ const totalPage = ref(0)
 
 const fetchData = (page: Ref<number>) => {
   return axios
-    .get('/api/post', { params: { page: page.value, limit: 4 } })
+    .get('/api/user/post', { params: { page: page.value, limit: 4 } })
     .then(({ data }: { data: Posts }) => {
       // api建立時間或快取時間
       const catchTime = new Date(data.cached_at)

@@ -44,7 +44,7 @@ setLocale('zhTW')
 const { handleSubmit, setFieldError, setErrors, resetForm } = useForm<FormType>()
 
 const { mutate, isLoading } = useMutation({
-  mutationFn: (formValues: FormType) => axios.post('/api/post', formValues),
+  mutationFn: (formValues: FormType) => axios.post('/api/user/post', formValues),
   // onMutate: (variables) => {
   //   console.log('onMutate', variables)
   //   // 送出前
@@ -117,7 +117,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="Title"
         type="text"
         placeholder="Post Title"
-        class="input-bordered input"
+        class="input input-bordered"
         rules="required|max:200"
         autofocus
       />
@@ -137,7 +137,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
       <Field name="content" label="Content" rules="max:2000" v-slot="{ field }">
         <textarea
           v-bind="field"
-          class="textarea-bordered textarea h-32"
+          class="textarea textarea-bordered h-32"
           placeholder="Post Content"
         ></textarea>
       </Field>
@@ -149,7 +149,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
 
     <!-- submit -->
     <div class="flex flex-col space-y-2">
-      <button type="submit" class="btn-primary btn" :disabled="isLoading">Submit</button>
+      <button type="submit" class="btn btn-primary" :disabled="isLoading">Submit</button>
     </div>
   </form>
 </template>

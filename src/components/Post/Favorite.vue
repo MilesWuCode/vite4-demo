@@ -28,7 +28,7 @@ localforage.getItem(`post.${props.post.id}.favorite`).then((val) => {
 // 更新
 const { mutate, isLoading } = useMutation({
   mutationFn: () => {
-    return axios.post(`/api/post/${props.post.id}/reactToFavorite`, {
+    return axios.post(`/api/post/${props.post.id}/favorite`, {
       action: isFavorite.value ? 'add' : 'del'
     })
   },
