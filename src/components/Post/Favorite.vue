@@ -7,7 +7,7 @@ import notyf from '@/utils/notyf'
 import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
 import type { AxiosError } from 'axios'
-import type { Post, Posts, FavoriteCatch } from '@/views/post/index.vue'
+import type { Post, Posts, FavoriteCatch } from '@/types/post'
 
 const props = defineProps<{
   post: Post

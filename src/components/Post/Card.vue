@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type Post } from '@/views/post/index.vue'
+import type { Post } from '@/types/post'
+import Like from '@/components/Post/Like.vue'
 import Favorite from '@/components/Post/Favorite.vue'
 
 defineProps<{
@@ -32,6 +33,7 @@ defineProps<{
       <Favorite class="absolute bottom-1 right-1" :post="post" />
     </div>
     <div class="card-body">
+      <Like />
       <h2 class="card-title truncate">{{ `${post.id} - ${post.title}` }}</h2>
       <p class="line-clamp-4 h-20">{{ post.content }}</p>
     </div>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { ref, type Ref } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import localforage from 'localforage'
+import Pagination from '@/components/Pagination.vue'
 import PostCard from '@/components/Post/Card.vue'
 import PostCreateDialog from '@/components/Post/CreateDialog.vue'
-import Pagination from '@/components/Pagination.vue'
-import type { Posts, FavoriteCatch } from '@/views/post/index.vue'
-import { ref, type Ref } from 'vue'
+import type { Posts, FavoriteCatch } from '@/types/post'
 
 const currentPage = ref(1)
 

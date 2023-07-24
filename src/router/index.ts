@@ -80,12 +80,12 @@ const router = createRouter({
         {
           path: '',
           component: () => import('../views/post/index.vue'),
-          meta: { auth: 'member' }
+          meta: { auth: 'public' }
         },
         {
           path: ':id',
           component: () => import('../views/post/[id].vue'),
-          meta: { auth: 'member' }
+          meta: { auth: 'all' }
         }
       ]
     },

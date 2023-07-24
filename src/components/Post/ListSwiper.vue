@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Posts } from '@/views/post/index.vue'
+import type { Posts } from '@/types/post'
 import PostCard from '@/components/Post/Card.vue'
 
 // @ts-ignore
@@ -39,14 +39,14 @@ const next = () => {
   <div class="relative">
     <button
       type="button"
-      class="btn-circle btn absolute left-4 top-[40%] z-10 hidden md:block"
+      class="btn btn-circle absolute left-4 top-[40%] z-10 hidden md:block"
       @click="prev"
     >
       <ArrowLeftIcon class="h-12 w-12" />
     </button>
     <button
       type="button"
-      class="btn-circle btn absolute right-4 top-[40%] z-10 hidden md:block"
+      class="btn btn-circle absolute right-4 top-[40%] z-10 hidden md:block"
       @click="next"
     >
       <ArrowRightIcon class="h-12 w-12" />
@@ -71,7 +71,7 @@ const next = () => {
           centeredSlides: false
         }
       }"
-      class="h-96"
+      class="h-[430px]"
     >
       <swiper-slide v-for="post in posts.data" :key="post.id" class="max-w-sm">
         <PostCard :post="post" />
