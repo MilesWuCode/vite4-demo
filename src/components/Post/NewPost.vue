@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import localforage from 'localforage'
-import PostListSwiper from '@/components/Post/ListSwiper.vue'
+import PostSwiper from '@/components/Post/Swiper.vue'
 import type { Posts, FavoriteCatch } from '@/types/post'
 
 const fetchData = () => {
@@ -52,6 +52,6 @@ const { isLoading, isError, data, error } = useQuery<Posts, Error>({
     </div>
 
     <!-- swiper -->
-    <PostListSwiper v-else-if="data" :posts="data" />
+    <PostSwiper v-else-if="data" :posts="data" />
   </div>
 </template>
