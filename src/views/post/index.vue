@@ -13,11 +13,11 @@ const { isLogin } = useAuthStore()
   <!-- breadcrumbs -->
   <div class="breadcrumbs text-sm">
     <ul>
-      <li>Long text 1</li>
-      <li>Long text 2</li>
-      <li>Long text 3</li>
-      <li>Long text 4</li>
-      <li>Long text 5</li>
+      <li>Link-1</li>
+      <li>Link-2</li>
+      <li>Link-3</li>
+      <li>Link-4</li>
+      <li>Link-5</li>
     </ul>
   </div>
 
