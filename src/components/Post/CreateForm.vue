@@ -2,7 +2,7 @@
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
 import { required, max } from '@vee-validate/rules'
-import { useMutation } from '@tanstack/vue-query'
+import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
 import notyf from '@/utils/notyf'
@@ -41,6 +41,8 @@ configure({
 
 setLocale('zhTW')
 
+const queryClient = useQueryClient()
+
 const { handleSubmit, setFieldError, setErrors, resetForm } = useForm<FormType>()
 
 const { mutate, isLoading } = useMutation({
@@ -77,6 +79,9 @@ const { mutate, isLoading } = useMutation({
 
     // dialog關閉
     emit('close')
+
+    // 重新取得清單
+    queryClient.refetchQueries(['MyPost', 1])
   },
   onSettled: (data, error, variables, context) => {
     // 結束

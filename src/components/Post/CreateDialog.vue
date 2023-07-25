@@ -15,10 +15,10 @@ const close = () => {
 </script>
 
 <template>
-  <button class="btn-sm btn" @click="open">Create</button>
+  <button class="btn btn-sm" @click="open">Create</button>
   <dialog ref="dialog" class="modal">
     <form method="dialog" class="modal-box">
-      <button class="btn-ghost btn-sm btn-circle btn absolute right-2 top-2" type="submit">
+      <button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2" type="submit">
         <CloseIcon />
       </button>
 

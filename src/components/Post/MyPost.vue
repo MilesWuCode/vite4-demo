@@ -43,7 +43,7 @@ const fetchData = (page: Ref<number>) => {
 }
 
 const { isLoading, isError, data, error } = useQuery<Posts, Error>({
-  queryKey: ['my-posts', currentPage],
+  queryKey: ['MyPost', currentPage],
   queryFn: () => fetchData(currentPage),
   keepPreviousData: true
 })
