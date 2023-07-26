@@ -31,6 +31,7 @@ describe('Favorite', () => {
     await wrapper.vm.$nextTick()
 
     expect(postdata).toHaveBeenCalledTimes(1)
+
     expect(postdata).toHaveBeenCalledWith('/api/post/33/favorite', { action: 'del' })
 
     await checkbox.setValue(true)
