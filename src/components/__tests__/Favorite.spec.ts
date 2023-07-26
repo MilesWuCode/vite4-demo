@@ -1,18 +1,21 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { VueWrapper, mount } from '@vue/test-utils'
 import Favorite from '../Post/Favorite.vue'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import axios from '../../utils/axios'
 
 describe('Favorite', () => {
   beforeEach(() => {})
 
   it('render', async () => {
+    const postdata = vi.spyOn(axios, 'post')
+
     const wrapper: VueWrapper<any> = mount(Favorite, {
       global: {
         plugins: [VueQueryPlugin]
       },
       propsData: {
-        id: '3',
+        id: '33',
         state: false
       }
     })
@@ -24,9 +27,11 @@ describe('Favorite', () => {
     expect(checkboxEl.checked).toBe(false)
 
     await checkbox.trigger('change')
-    // await checkbox.setValue(true)
 
     await wrapper.vm.$nextTick()
+
+    expect(postdata).toHaveBeenCalledTimes(1)
+    expect(postdata).toHaveBeenCalledWith('/api/post/33/favorite', { action: 'del' })
 
     expect(checkboxEl.checked).toBe(true)
 
