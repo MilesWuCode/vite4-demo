@@ -1,25 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { useMutation } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import localforage from 'localforage'
 import notyf from '@/utils/notyf'
 import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
 import type { AxiosError } from 'axios'
-import type { Post, Posts, FavoriteCatch } from '@/types/post'
+import type { FavoriteCatch } from '@/types/post'
 
 const props = defineProps<{
-  post: Post
+  id: string
+  state: boolean
 }>()
 
-const queryClient = useQueryClient()
+// const queryClient = useQueryClient()
 
 // 原資料
-const isFavorite = ref(props.post.reaction.favorite_state)
+const isFavorite = ref(props.state)
 
 // indexedDB資料
-localforage.getItem(`post.${props.post.id}.favorite`).then((val) => {
+localforage.getItem(`post.${props.id}.favorite`).then((val) => {
   const favorite = val as FavoriteCatch
 
   favorite && (isFavorite.value = favorite.state)
@@ -28,7 +29,7 @@ localforage.getItem(`post.${props.post.id}.favorite`).then((val) => {
 // 更新
 const { mutate, isLoading } = useMutation({
   mutationFn: () => {
-    return axios.post(`/api/post/${props.post.id}/favorite`, {
+    return axios.post(`/api/post/${props.id}/favorite`, {
       action: isFavorite.value ? 'add' : 'del'
     })
   },
@@ -40,7 +41,7 @@ const { mutate, isLoading } = useMutation({
   onSuccess: (data, variables, context) => {
     console.log('onSuccess', data, variables, context)
 
-    localforage.setItem(`post.${props.post.id}.favorite`, {
+    localforage.setItem(`post.${props.id}.favorite`, {
       state: isFavorite.value,
       time: new Date()
     })
@@ -62,7 +63,9 @@ const { mutate, isLoading } = useMutation({
  * - 同步分頁
  * - 快取用戶狀態
  */
-const updateQueryCache = () => {
+
+/**
+ const updateQueryCache = () => {
   const posts = queryClient.getQueryData(['posts']) as Posts
 
   let isChange = false
@@ -81,6 +84,7 @@ const updateQueryCache = () => {
     queryClient.setQueryData(['posts'], posts)
   }
 }
+*/
 </script>
 
 <template>
@@ -89,7 +93,7 @@ const updateQueryCache = () => {
 
     <template v-else>
       <!-- this hidden checkbox controls the state -->
-      <input type="checkbox" v-model="isFavorite" @change="() => mutate()" />
+      <input type="checkbox" v-model="isFavorite" @change="() => mutate()" data-test="checkbox" />
 
       <!-- on -->
       <OnIcon class="swap-on fill-current text-red-500" />

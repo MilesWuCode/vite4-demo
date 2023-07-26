@@ -30,7 +30,11 @@ defineProps<{
         <!-- image -->
         <img :src="post.cover" :alt="post.title" class="h-48 w-full object-cover" loading="lazy" />
       </RouterLink>
-      <Favorite class="absolute bottom-1 right-1" :post="post" />
+      <Favorite
+        class="absolute bottom-1 right-1"
+        :id="post.id"
+        :state="post.reaction.favorite_state"
+      />
     </div>
     <div class="card-body">
       <Like />

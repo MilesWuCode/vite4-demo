@@ -13,7 +13,24 @@ export default defineConfig({
       template: {
         compilerOptions: {
           // treat all tags with a dash as custom elements
-          isCustomElement: (tag) => tag.includes('-')
+          isCustomElement: (tag) => tag.includes('-'),
+
+          // production remove test attribut: data-test="name"
+          nodeTransforms: [
+            (node) => {
+              if (process.env.NODE_ENV === 'production') {
+                if (node.type === 1 /*NodeTypes.ELEMENT*/) {
+                  for (let i = 0; i < node.props.length; i++) {
+                    const p = node.props[i]
+                    if (p && p.type === 6 /*NodeTypes.ATTRIBUTE*/ && p.name === 'data-test') {
+                      node.props.splice(i, 1)
+                      i--
+                    }
+                  }
+                }
+              }
+            }
+          ]
         }
       }
     }),

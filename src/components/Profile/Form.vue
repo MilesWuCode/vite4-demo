@@ -2,7 +2,7 @@
 import { defineRule, configure, useForm, Field, ErrorMessage } from 'vee-validate'
 import { localize, setLocale } from '@vee-validate/i18n'
 import { required, email, min, max } from '@vee-validate/rules'
-import { useMutation, useQueryClient } from '@tanstack/vue-query'
+import { useMutation } from '@tanstack/vue-query'
 import axios from '@/utils/axios'
 import EmailVerifyInput from '@/components/Profile/EmailVerifyInput.vue'
 import ja from '@vee-validate/i18n/dist/locale/ja.json'
@@ -119,7 +119,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
         label="名字"
         type="text"
         placeholder="Your Name"
-        class="input-bordered input"
+        class="input input-bordered"
         rules="required|max:20"
       />
       <label class="label">
@@ -134,7 +134,7 @@ function onInvalidSubmit({ values, errors, results }: any) {
 
     <!-- submit -->
     <div class="flex w-full max-w-sm flex-col space-y-2">
-      <button type="submit" class="btn-primary btn w-full" :disabled="isLoading">Submit</button>
+      <button type="submit" class="btn btn-primary w-full" :disabled="isLoading">Submit</button>
     </div>
   </form>
 </template>
