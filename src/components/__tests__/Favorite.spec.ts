@@ -7,7 +7,7 @@ import axios from '../../utils/axios'
 describe('Favorite', () => {
   beforeEach(() => {})
 
-  it('render', async () => {
+  it('all test', async () => {
     const axiosPost = vi.spyOn(axios, 'post')
 
     const id = '1'
