@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { VueWrapper, mount } from '@vue/test-utils'
-import Favorite from '../Post/Favorite.vue'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import { VueWrapper, mount } from '@vue/test-utils'
 import axios from '../../utils/axios'
+import Favorite from '../Post/Favorite.vue'
 
 describe('Favorite', () => {
   beforeEach(() => {})
