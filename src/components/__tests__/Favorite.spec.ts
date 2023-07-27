@@ -10,13 +10,17 @@ describe('Favorite', () => {
   it('render', async () => {
     const axiosPost = vi.spyOn(axios, 'post')
 
+    const id = '1'
+
+    const state = false
+
     const wrapper: VueWrapper<any> = mount(Favorite, {
       global: {
         plugins: [VueQueryPlugin]
       },
-      propsData: {
-        id: '33',
-        state: false
+      props: {
+        id,
+        state
       }
     })
 
@@ -29,28 +33,27 @@ describe('Favorite', () => {
     // 取得元素
     const checkboxEl = checkbox.element as HTMLInputElement
 
-    // 元素是否checked為false
-    expect(checkboxEl.checked).toBe(false)
+    // 組件內的值是否為state
+    expect(wrapper.vm.isFavorite).toBe(state)
 
-    // 觸發事件change
-    await checkbox.trigger('change')
+    // 元素是否checked為state
+    expect(checkboxEl.checked).toBe(state)
 
-    // 等待變化
-    await wrapper.vm.$nextTick()
+    // 設定值為!state
+    await checkbox.setValue(!state)
+
+    // 組件內的值是否為!state
+    expect(wrapper.vm.isFavorite).toBe(!state)
+
+    // 元素是否checked為!state
+    expect(checkboxEl.checked).toBe(!state)
 
     // 組件內的function被呼叫幾次
     expect(axiosPost).toHaveBeenCalledTimes(1)
 
     // 組件內的function被呼叫時的參數
-    expect(axiosPost).toHaveBeenCalledWith('/api/post/33/favorite', { action: 'del' })
-
-    // 設定值為true
-    await checkbox.setValue(true)
-
-    // 元素是否checked為true
-    expect(checkboxEl.checked).toBe(true)
-
-    // 組件內的值是否為true
-    expect(wrapper.vm.isFavorite).toBe(true)
+    expect(axiosPost).toHaveBeenCalledWith(`/api/post/${id}/favorite`, {
+      action: !state ? 'add' : 'del'
+    })
   })
 })
