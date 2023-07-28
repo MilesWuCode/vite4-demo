@@ -10,7 +10,7 @@ import type { AxiosError } from 'axios'
 import type { FavoriteCatch } from '@/types/post'
 
 const props = defineProps<{
-  id: string
+  id: string | number
   state: boolean
 }>()
 

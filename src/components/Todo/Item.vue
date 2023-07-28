@@ -7,8 +7,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'changeState', id: string, state: Todo['state']): void
-  (e: 'removeTodo', id: string): void
+  (e: 'changeState', id: string | number, state: Todo['state']): void
+  (e: 'removeTodo', id: string | number): void
 }>()
 
 const state = ref(props.todo.state)

@@ -1,11 +1,11 @@
 export type Post = {
-  id: string
+  id: string | number
   title: string
   content: string
   cover: string
   reaction: Reaction
   user: {
-    id: string
+    id: string | number
     name: string
     avatar: string
   }

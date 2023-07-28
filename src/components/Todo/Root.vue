@@ -35,11 +35,11 @@ const addTodo = () => {
   input.value = ''
 }
 
-const changeState = (id: string, state: Todo['state']) => {
+const changeState = (id: string | number, state: Todo['state']) => {
   store.changeState(id, state)
 }
 
-const removeTodo = (id: string) => {
+const removeTodo = (id: string | number) => {
   store.remove(id)
 }
 </script>

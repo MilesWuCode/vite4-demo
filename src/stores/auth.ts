@@ -107,12 +107,15 @@ export const useAuthStore = defineStore('auth', () => {
           isLogin.value = true
         })
         .catch(() => {
-          // 發生錯誤時登出
-          Cookies.remove('token')
+          // 網路未離線
+          if (navigator.onLine) {
+            // 發生錯誤時登出
+            Cookies.remove('token')
 
-          user.value = null
+            user.value = null
 
-          isLogin.value = false
+            isLogin.value = false
+          }
         })
     }
   }
