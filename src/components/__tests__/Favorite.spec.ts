@@ -8,10 +8,13 @@ describe('Favorite', () => {
   beforeEach(() => {})
 
   it('all test', async () => {
+    // 監視aios.post
     const axiosPost = vi.spyOn(axios, 'post')
 
+    // 測試資料
     const id = '1'
 
+    // 測試資料
     const state = false
 
     const wrapper: VueWrapper<any> = mount(Favorite, {
