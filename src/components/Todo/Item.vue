@@ -32,14 +32,19 @@ const onRemove = () => {
       type="checkbox"
       class="checkbox flex-none"
       @change="onChange"
+      data-test="stateChangeButton"
     />
 
     <!-- content -->
-    <div class="w-full grow break-words" :class="state === 'completed' && 'line-through'">
+    <div
+      class="w-full grow break-words"
+      :class="state === 'completed' && 'line-through'"
+      data-test="content"
+    >
       {{ todo.content }}
     </div>
 
     <!-- delete button -->
-    <button class="btn-sm btn flex-none" @click="onRemove">Del</button>
+    <button class="btn btn-sm flex-none" @click="onRemove" data-test="deleteButton">Del</button>
   </div>
 </template>

@@ -49,8 +49,13 @@ const removeTodo = (id: string) => {
     <!-- input -->
     <div class="form-control">
       <div class="input-group">
-        <input v-model.trim="input" type="text" class="input input-bordered w-full" />
-        <button class="btn btn-square" @click="addTodo">add</button>
+        <input
+          v-model.trim="input"
+          type="text"
+          data-test="todoInput"
+          class="input input-bordered w-full"
+        />
+        <button class="btn btn-square" @click="addTodo" data-test="todoAddButton">add</button>
       </div>
     </div>
 
@@ -73,8 +78,13 @@ const removeTodo = (id: string) => {
 
     <!-- list -->
     <ul class="space-y-2">
-      <li v-for="item of store.filterByState(filter)" :key="item.id">
-        <Item :todo="item" @change-state="changeState" @remove-todo="removeTodo" />
+      <li v-for="item in store.filterByState(filter)" :key="item.id">
+        <Item
+          :todo="item"
+          @change-state="changeState"
+          @remove-todo="removeTodo"
+          data-test="todoItem"
+        />
       </li>
     </ul>
   </div>

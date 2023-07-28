@@ -7,7 +7,7 @@ import Favorite from '../Post/Favorite.vue'
 describe('Favorite', () => {
   beforeEach(() => {})
 
-  it('all test', async () => {
+  it('all', async () => {
     // 監視aios.post
     const axiosPost = vi.spyOn(axios, 'post')
 
