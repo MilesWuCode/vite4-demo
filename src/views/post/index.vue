@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import MyPost from '@/components/Post/MyPost.vue'
 import NewPost from '@/components/Post/NewPost.vue'
 
-const { isLogin } = useAuthStore()
+const authStore = useAuthStore()
+
+// 改用storeToRefs
+const { isLogin } = storeToRefs(authStore)
 </script>
 
 <template>

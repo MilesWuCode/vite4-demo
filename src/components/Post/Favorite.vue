@@ -8,6 +8,8 @@ import OffIcon from '@/components/icons/FavoriteOffIcon.vue'
 import OnIcon from '@/components/icons/FavoriteOnIcon.vue'
 import type { AxiosError } from 'axios'
 import type { FavoriteCatch } from '@/types/post'
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps<{
   id: string | number
@@ -18,6 +20,11 @@ const props = defineProps<{
 
 // 原資料
 const isFavorite = ref(props.state)
+
+const authStore = useAuthStore()
+
+// 改用storeToRefs
+const { isLogin } = storeToRefs(authStore)
 
 // indexedDB資料
 localforage.getItem(`post.${props.id}.favorite`).then((val) => {
@@ -52,6 +59,10 @@ const { mutate, isLoading } = useMutation({
     // updateQueryCache()
   }
 })
+
+function clickButton() {
+  isLogin.value ? mutate() : notyf.error('請登入會員')
+}
 
 /**
  * 更新cache
@@ -93,7 +104,7 @@ const { mutate, isLoading } = useMutation({
 
     <template v-else>
       <!-- this hidden checkbox controls the state -->
-      <input type="checkbox" v-model="isFavorite" @change="() => mutate()" data-test="checkbox" />
+      <input type="checkbox" v-model="isFavorite" @change="clickButton" data-test="checkbox" />
 
       <!-- on -->
       <OnIcon class="swap-on fill-current text-red-500" />
