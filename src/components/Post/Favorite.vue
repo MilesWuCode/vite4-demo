@@ -61,7 +61,7 @@ const { mutate, isLoading } = useMutation({
 })
 
 function clickButton() {
-  isLogin.value ? mutate() : notyf.error('請登入會員')
+  notyf.error('請登入會員')
 }
 
 /**
@@ -99,12 +99,12 @@ function clickButton() {
 </script>
 
 <template>
-  <label class="swap">
+  <label class="swap" v-if="isLogin">
     <span v-if="isLoading" class="loading loading-spinner loading-md text-red-500"></span>
 
     <template v-else>
       <!-- this hidden checkbox controls the state -->
-      <input type="checkbox" v-model="isFavorite" @change="clickButton" data-test="checkbox" />
+      <input type="checkbox" v-model="isFavorite" @change="() => mutate()" data-test="checkbox" />
 
       <!-- on -->
       <OnIcon class="swap-on fill-current text-red-500" />
@@ -112,5 +112,8 @@ function clickButton() {
       <!-- off -->
       <OffIcon class="swap-off fill-current text-red-500" />
     </template>
+  </label>
+  <label class="swap" v-else>
+    <OffIcon class="swap-off fill-current text-red-500" @click="clickButton" />
   </label>
 </template>
