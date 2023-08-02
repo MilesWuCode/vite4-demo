@@ -4,6 +4,13 @@ import axios from '@/utils/axios'
 import localforage from 'localforage'
 import PostSwiper from '@/components/Post/Swiper.vue'
 import type { Posts, FavoriteCatch } from '@/types/post'
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
+
+const authStore = useAuthStore()
+
+// 改用storeToRefs
+const { isLogin } = storeToRefs(authStore)
 
 const fetchData = () => {
   return axios
@@ -12,22 +19,24 @@ const fetchData = () => {
       // api建立時間或快取時間
       const catchTime = new Date(data.cached_at)
 
-      // favorite
-      Object.values(data.data).forEach((item) => {
-        // 取出indexedDB
-        localforage.getItem(`post.${item.id}.favorite`).then((val) => {
-          const favorite = val as FavoriteCatch
+      if (isLogin.value) {
+        // favorite
+        Object.values(data.data).forEach((item) => {
+          // 取出indexedDB
+          localforage.getItem(`post.${item.id}.favorite`).then((val) => {
+            const favorite = val as FavoriteCatch
 
-          // 沒有資料或資料時間小於快取時間
-          if (favorite === null || favorite?.time < catchTime) {
-            // 存入indexedDB
-            localforage.setItem(`post.${item.id}.favorite`, {
-              state: item.reaction.favorite_state,
-              time: new Date()
-            })
-          }
+            // 沒有資料或資料時間小於快取時間
+            if (favorite === null || favorite?.time < catchTime) {
+              // 存入indexedDB
+              localforage.setItem(`post.${item.id}.favorite`, {
+                state: item.reaction.favorite_state,
+                time: new Date()
+              })
+            }
+          })
         })
-      })
+      }
 
       return data
     })
