@@ -79,13 +79,13 @@ const { mutate, isLoading } = useMutation({
 
     // dialog關閉
     emit('close')
-
-    // 重新取得清單
-    queryClient.refetchQueries(['MyPost', 1])
   },
   onSettled: (data, error, variables, context) => {
     // 結束
     console.log('onSettled', data, error, variables, context)
+
+    // 重新取得清單
+    queryClient.invalidateQueries(['MyPost', 1])
   }
 })
 
