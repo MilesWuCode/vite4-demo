@@ -61,12 +61,27 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // 柝檔命名
+        // 自動柝檔命名
         manualChunks(id) {
           if (id.includes('node_modules')) {
             return id.toString().split('node_modules/')[1].split('/')[0].toString()
           }
         },
+
+        // 自訂名字
+        // manualChunks: {
+        //   '@apollo+client': ['@apollo/client/cache', '@apollo/client/core'],
+        //   'axios': ['axios'],
+        //   '@headlessui+vue': ['@headlessui/vue'],
+        // },
+
+        // 官方範例
+        // manualChunks(id) {
+        //   if (id.includes('node_modules')) {
+        //     return 'vendor'
+        //   }
+        // },
+
         // 分資料夾
         chunkFileNames: (chunkInfo) => {
           const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []
