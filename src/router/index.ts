@@ -85,7 +85,7 @@ const router = createRouter({
         {
           path: ':id',
           component: () => import('../views/post/[id].vue'),
-          meta: { auth: 'all' }
+          meta: { auth: 'public' }
         }
       ]
     },
@@ -96,7 +96,7 @@ const router = createRouter({
         {
           path: '/:pathMatch(.*)*',
           component: () => import('../views/[...all].vue'),
-          meta: { auth: 'all' }
+          meta: { auth: 'public' }
         }
       ]
     }
